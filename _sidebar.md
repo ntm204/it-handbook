@@ -1,0 +1,12 @@
+- **Bắt đầu**
+  - [Trang chủ](README.md)
+  - [Bản đồ nghề](nghe-nghiep.md)
+- **Thực chiến**
+  - [Xử lý sự cố](xu-ly-su-co.md)
+- **Lệnh theo chủ đề**
+  - [Mạng](mang.md)
+  - [Linux server](linux.md)
+  - [Windows & Active Directory](windows.md)
+  - [Switch & Firewall](thiet-bi-mang.md)
+  - [Máy Mac này](may-mac.md)
+  - [Máy Mac này (English)](may-mac.en.md)
