@@ -2,7 +2,9 @@
 
 Lệnh dòng lệnh cho switch Cisco IOS, HPE/Aruba và firewall FortiGate: xem trạng thái, cấu hình VLAN, tìm lỗi cổng, lần dấu gói tin bị chặn.
 
-> Đọc xong: tìm ra một máy đang cắm ở cổng nào; cấu hình cổng access, trunk; đọc bộ đếm lỗi để biết hỏng dây hay hỏng thiết bị; biết vì sao firewall chặn một kết nối.
+> Tìm ra một máy đang cắm ở cổng nào; cấu hình cổng access, trunk; đọc bộ đếm lỗi để biết hỏng dây hay hỏng thiết bị; biết vì sao firewall chặn một kết nối.
+
+<p class="related">Liên quan: <a href="#/xu-ly-su-co?id=su-co-2">Cả khu mất mạng</a> · <a href="#/xu-ly-su-co?id=su-co-10">Camera mất hình</a> · <a href="#/mang?id=tcp-ip">VLAN nằm ở tầng nào</a></p>
 
 ## Trước khi sửa thiết bị mạng
 
@@ -25,7 +27,7 @@ Lệnh dòng lệnh cho switch Cisco IOS, HPE/Aruba và firewall FortiGate: xem 
 
 `end` để về chế độ quản trị · `?` ở bất kỳ đâu để xem lệnh gõ được · trong chế độ cấu hình muốn chạy `show` thì thêm `do` phía trước.
 
-### Xem
+### Xem :id=cisco-xem
 
 | Việc | Lệnh |
 |---|---|
@@ -132,7 +134,13 @@ diagnose debug reset
 
 Sao lưu cấu hình: giao diện web → biểu tượng tài khoản góc trên bên phải → **Configuration → Backup**.
 
-## Nguồn tham khảo
+## Cần nhớ :id=can-nho
+
+1. Tìm máy ở cổng nào: lấy MAC → `show mac address-table address <mac>`.
+2. Thêm VLAN vào trunk phải có chữ **`add`**; thiếu là mất toàn bộ VLAN cũ trên đường trunk.
+3. Lỗi CRC tăng = vấn đề **vật lý** (dây, đầu bấm, nhiễu). Xoá bộ đếm rồi theo dõi xem có tăng tiếp không.
+
+## Nguồn tham khảo :id=nguon
 
 - Cisco — [Catalyst 9300 command references](https://www.cisco.com/c/en/us/support/switches/catalyst-9300-series-switches/products-command-reference-list.html) · [Cisco Packet Tracer](https://www.netacad.com/cisco-packet-tracer)
 - Fortinet — [FortiGate documentation](https://docs.fortinet.com/product/fortigate)

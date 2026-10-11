@@ -2,7 +2,9 @@
 
 Bản đồ nghề hệ thống & mạng, đặc biệt là IT trong nhà máy ở khu công nghiệp.
 
-> Đọc xong: biết chọn vị trí nào, học theo thứ tự nào, chứng chỉ nào đáng thi, và hiểu vì sao mạng nhà máy phải chia tầng.
+> Biết chọn vị trí nào, học theo thứ tự nào, chứng chỉ nào đáng thi, và hiểu vì sao mạng nhà máy phải chia tầng.
+
+<p class="related">Liên quan: Bắt đầu học từ <a href="#/mang">02 · Mạng</a></p>
 
 ## Các vị trí
 
@@ -86,7 +88,13 @@ flowchart TD
 
 ?> Thứ tự hợp lý: **CCNA** (giá trị nhất khi xin việc mạng ở Việt Nam) → **RHCSA** (chứng minh làm được thật) → chứng chỉ của hãng thiết bị công ty đang dùng.
 
-## Nguồn tham khảo
+## Cần nhớ :id=can-nho
+
+1. Ở nhà máy, **dây chuyền không được dừng** là ưu tiên số một: mọi thay đổi trên mạng OT phải được kỹ sư phụ trách đồng ý.
+2. Học theo thứ tự **mạng → Linux/Windows → switch → firewall**: không vững mạng thì mọi thứ phía sau đều là học vẹt.
+3. Chứng chỉ chứng minh kiến thức, **lab tự dựng** chứng minh làm được: cần cả hai.
+
+## Nguồn tham khảo :id=nguon
 
 - ISA — [ISA/IEC 62443 Series of Standards](https://www.isa.org/standards-and-publications/isa-standards/isa-iec-62443-series-of-standards)
 - Trang chứng chỉ chính thức của Cisco, CompTIA, Red Hat, LPI, Fortinet (liên kết trong bảng trên)

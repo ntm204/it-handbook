@@ -2,9 +2,11 @@
 
 Lệnh cmd và PowerShell cho máy trạm, file server và domain. Mở bằng <kbd>Win</kbd>+<kbd>R</kbd> → `cmd` hoặc `powershell`; lệnh quản trị: chuột phải → **Run as administrator**.
 
-> Đọc xong: chẩn đoán mạng trên Windows; sửa máy mất liên kết domain mà không phải gỡ khỏi domain; tìm ra máy đang làm khoá tài khoản; xem ai đang giữ file trên file server.
+> Chẩn đoán mạng trên Windows; sửa máy mất liên kết domain mà không phải gỡ khỏi domain; tìm ra máy đang làm khoá tài khoản; xem ai đang giữ file trên file server.
 
-## Mạng
+<p class="related">Liên quan: <a href="#/xu-ly-su-co?id=su-co-6">Không đăng nhập domain</a> · <a href="#/xu-ly-su-co?id=su-co-4">Thư mục chia sẻ</a> · <a href="#/xu-ly-su-co?id=su-co-5">Máy in</a></p>
+
+## Mạng :id=mang
 
 | Việc | Lệnh |
 |---|---|
@@ -56,7 +58,7 @@ Lệnh cmd và PowerShell cho máy trạm, file server và domain. Mở bằng <
 
 ?> Lỗi *"The trust relationship between this workstation and the primary domain failed"*: cách cũ là gỡ máy khỏi domain rồi join lại, mất profile và mất thời gian. Lệnh `Test-ComputerSecureChannel -Repair` (chạy bằng quyền quản trị cục bộ, nhập tài khoản domain admin) sửa tại chỗ trong vài giây. Lệnh này có trong Windows PowerShell 5.1 (`powershell`), không có trong PowerShell 7 (`pwsh`).
 
-## Active Directory (PowerShell)
+## Active Directory (PowerShell) :id=active-directory
 
 Chạy trên domain controller hoặc máy đã cài RSAT.
 
@@ -115,7 +117,7 @@ Get-DhcpServerv4Lease -ScopeId <dải>       # máy nào đang giữ IP nào
 
 Dải IP dùng gần 100% → máy mới không xin được IP (nhận `169.254.x.x`). Rút ngắn thời gian thuê IP (lease) hoặc mở rộng dải.
 
-## Máy in kẹt lệnh in
+## Máy in kẹt lệnh in :id=may-in-ket
 
 ```bat
 net stop spooler
@@ -123,7 +125,13 @@ del /Q %systemroot%\System32\spool\PRINTERS\*
 net start spooler
 ```
 
-## Nguồn tham khảo
+## Cần nhớ :id=can-nho
+
+1. Lệch giờ quá **5 phút** là không đăng nhập domain được: kiểm tra bằng `w32tm /query /status`.
+2. Tài khoản bị khoá lặp lại: xem **event 4740** trên PDC để biết máy nào gửi mật khẩu sai.
+3. `robocopy /MIR` xoá ở đích những gì nguồn không có: luôn chạy thử với `/L` trước.
+
+## Nguồn tham khảo :id=nguon
 
 - Microsoft Learn — [Windows commands](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands) · [robocopy](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/robocopy) · [netsh](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/netsh) · [klist](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/klist) · [nltest](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc731935(v=ws.11))
 - Microsoft Learn — [Test-ComputerSecureChannel](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/test-computersecurechannel?view=powershell-5.1) · [ActiveDirectory module](https://learn.microsoft.com/en-us/powershell/module/activedirectory/) · [Get-SmbOpenFile](https://learn.microsoft.com/en-us/powershell/module/smbshare/get-smbopenfile) · [Get-DhcpServerv4ScopeStatistics](https://learn.microsoft.com/en-us/powershell/module/dhcpserver/get-dhcpserverv4scopestatistics)

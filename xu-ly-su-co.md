@@ -2,9 +2,21 @@
 
 Quy trình chuẩn và các bước kiểm tra cụ thể cho 10 sự cố hay gặp nhất ở văn phòng và nhà máy.
 
-> Đọc xong: xử lý sự cố theo quy trình thay vì đoán mò; khoanh vùng lỗi trong vài phút; viết được báo cáo sự cố đúng chuẩn.
+> Xử lý sự cố theo quy trình thay vì đoán mò; khoanh vùng lỗi trong vài phút; viết được báo cáo sự cố đúng chuẩn.
 
-## Quy trình 7 bước (CompTIA)
+## Chọn theo triệu chứng :id=chon
+
+| Máy trạm & mạng | Tài khoản, server, thiết bị |
+|---|---|
+| [1 · Một máy không vào mạng](xu-ly-su-co.md?id=su-co-1) | [6 · Không đăng nhập được domain](xu-ly-su-co.md?id=su-co-6) |
+| [2 · Cả khu mất mạng, mạng chậm](xu-ly-su-co.md?id=su-co-2) | [7 · Server Linux đầy ổ](xu-ly-su-co.md?id=su-co-7) |
+| [3 · Vào bằng IP được, bằng tên không](xu-ly-su-co.md?id=su-co-3) | [8 · Server chậm](xu-ly-su-co.md?id=su-co-8) |
+| [4 · Không vào được thư mục chia sẻ](xu-ly-su-co.md?id=su-co-4) | [9 · Web nội bộ không truy cập được](xu-ly-su-co.md?id=su-co-9) |
+| [5 · Máy in không in](xu-ly-su-co.md?id=su-co-5) | [10 · Camera mất hình](xu-ly-su-co.md?id=su-co-10) |
+
+Chưa rõ thuộc loại nào: làm theo [quy trình 7 bước](xu-ly-su-co.md?id=quy-trinh).
+
+## Quy trình 7 bước (CompTIA) :id=quy-trinh
 
 ```mermaid
 flowchart TD
@@ -33,9 +45,9 @@ flowchart TD
 | Cả nhà máy | Core switch, firewall, DHCP/DNS server, đường Internet, điện |
 | Một ứng dụng, mọi người | Server của ứng dụng đó |
 
-## 1. Một máy không vào được mạng
+## 1. Một máy không vào được mạng :id=su-co-1
 
-Làm theo [quy trình kiểm tra 5 bước](mang.md?id=quy-trình-kiểm-tra-5-bước).
+Làm theo [quy trình kiểm tra 5 bước](mang.md?id=kiem-tra-5-buoc).
 
 | Hay gặp | Kiểm tra | Xử lý |
 |---|---|---|
@@ -48,7 +60,7 @@ Tìm máy đang cắm ở cổng nào: lấy MAC bằng `ipconfig /all`, trên s
 
 ?> **Báo trùng IP giả với địa chỉ `0.0.0.0`** (event 4199), máy không nhận được IP dù DHCP vẫn chạy, log DHCP server đầy `BAD_ADDRESS`: không phải trùng IP thật. Tính năng **IP Device Tracking** của switch Cisco gửi gói ARP dò đúng lúc Windows đang kiểm tra trùng địa chỉ. Cách xử lý theo [Microsoft](https://learn.microsoft.com/en-us/troubleshoot/windows-server/networking/event-4199-windows-client-cannot-get-ip-address-dhcp-server) và [Cisco](https://www.cisco.com/c/en/us/support/docs/ios-nx-os-software/8021x/116529-problemsolution-product-00.html): tắt tính năng này hoặc cho switch gửi gói dò chậm lại.
 
-## 2. Cả một khu vực mất mạng hoặc rất chậm
+## 2. Cả một khu vực mất mạng hoặc rất chậm :id=su-co-2
 
 1. Mọi máy trong khu cùng bị? Có chung **một switch**?
 2. Ra tủ mạng: switch có điện, đèn uplink có sáng không.
@@ -65,7 +77,7 @@ show spanning-tree detail | include ieee|occurr|from|is exec
 
 Kết quả cho biết topology thay đổi bao nhiêu lần, lần cuối cách đây bao lâu, **từ cổng nào**. Đi theo cổng đó tới switch kế tiếp, lặp lại cho tới khi tìm ra nguồn.
 
-## 3. Vào được bằng IP, không vào được bằng tên
+## 3. Vào được bằng IP, không vào được bằng tên :id=su-co-3
 
 ```bat
 nslookup <tên-server>
@@ -79,7 +91,7 @@ ipconfig /flushdns
 | DNS server nội bộ dừng | Cả lệnh 1 và 2 đều lỗi |
 | Bản ghi DNS sai | Trả về IP cũ |
 
-## 4. Không vào được thư mục chia sẻ
+## 4. Không vào được thư mục chia sẻ :id=su-co-4
 
 | # | Kiểm tra | Lệnh |
 |---|---|---|
@@ -93,24 +105,24 @@ ipconfig /flushdns
 
 Người dùng báo *"file đang được người khác mở"*: trên file server chạy `Get-SmbOpenFile | Where-Object Path -like "*<tên-file>*"` để biết ai đang giữ file.
 
-## 5. Máy in không in
+## 5. Máy in không in :id=su-co-5
 
 1. Máy khác in được không? Được → lỗi ở máy này. Không → lỗi ở máy in.
 2. `ping <ip-máy-in>`: không thông → máy in mất mạng hoặc **đổi IP**.
-3. Hàng đợi kẹt → [xoá hàng đợi](windows.md?id=máy-in-kẹt-lệnh-in).
+3. Hàng đợi kẹt → [xoá hàng đợi](windows.md?id=may-in-ket).
 
 ?> Máy in nên có **IP cố định**, bằng cách đặt IP tĩnh hoặc giữ chỗ (reservation) trên DHCP server. Máy in nhận IP động là nguyên nhân số một của "hôm qua in được, hôm nay không".
 
-## 6. Không đăng nhập được domain
+## 6. Không đăng nhập được domain :id=su-co-6
 
 | Thông báo / dấu hiệu | Nguyên nhân | Xử lý |
 |---|---|---|
-| *The referenced account is currently locked out* | Tài khoản bị khoá | `Unlock-ADAccount <tên>`; khoá lại liên tục thì [tìm máy gây khoá](windows.md?id=active-directory-powershell) (event 4740) |
+| *The referenced account is currently locked out* | Tài khoản bị khoá | `Unlock-ADAccount <tên>`; khoá lại liên tục thì [tìm máy gây khoá](windows.md?id=active-directory) (event 4740) |
 | *The trust relationship … failed* | Máy mất liên kết domain | `Test-ComputerSecureChannel -Repair -Credential (Get-Credential)` |
 | Báo lỗi thời gian, Kerberos | Giờ máy lệch quá 5 phút | `w32tm /resync`, kiểm tra pin CMOS |
 | *Your password has expired* | Hết hạn mật khẩu | `Set-ADAccountPassword` + `-ChangePasswordAtLogon $true` |
 
-## 7. Server Linux đầy ổ
+## 7. Server Linux đầy ổ :id=su-co-7
 
 ```bash
 df -h                                          # phân vùng nào đầy
@@ -129,9 +141,9 @@ docker system df                               # nếu có Docker
 | Backup cũ tích tụ | Xoá theo chính sách lưu trữ, thêm bước tự dọn vào script backup |
 | Image, container Docker cũ | `docker system prune` (xem kỹ trước khi đồng ý) |
 
-## 8. Server chậm
+## 8. Server chậm :id=su-co-8
 
-Làm theo [quy trình 60 giây](linux.md?id=đọc-tình-trạng-server-trong-60-giây). Dấu hiệu cần chú ý:
+Làm theo [quy trình 60 giây](linux.md?id=server-60-giay). Dấu hiệu cần chú ý:
 
 | Thấy | Nghĩa là |
 |---|---|
@@ -141,7 +153,7 @@ Làm theo [quy trình 60 giây](linux.md?id=đọc-tình-trạng-server-trong-60
 | `dmesg`: `Out of memory: Killed process` | Hết RAM, kernel đã tắt bớt tiến trình |
 | `iostat`: `%util` gần 100 | Ổ đĩa quá tải |
 
-## 9. Web / ứng dụng nội bộ không truy cập được
+## 9. Web / ứng dụng nội bộ không truy cập được :id=su-co-9
 
 ```bash
 ping <server>                      # 1. server còn sống
@@ -158,14 +170,14 @@ Trên server: `systemctl status <dịch-vụ>` → `sudo ss -tulpn | grep :443` 
 | 500 | Lỗi bên trong ứng dụng | Log ứng dụng |
 | 502 / 504 | Proxy (nginx) không gọi được ứng dụng phía sau | Ứng dụng đã dừng hoặc quá tải |
 
-## 10. Camera mất hình
+## 10. Camera mất hình :id=su-co-10
 
 1. Một camera hay nhiều camera? Nhiều camera chung một switch PoE → xem switch đó.
 2. `ping <ip-camera>`: không thông → mất nguồn PoE, dây hoặc camera hỏng.
 3. Ping được nhưng đầu ghi không có hình → `Test-NetConnection <ip-camera> -Port 554` (RTSP), kiểm tra tài khoản camera trên đầu ghi.
 4. Vừa lắp thêm camera thì vài camera khác tắt → **switch hết công suất PoE**: `show power inline` xem tổng công suất còn lại.
 
-## Mẫu báo cáo sự cố
+## Mẫu báo cáo sự cố :id=bao-cao
 
 ```
 Sự cố:        Mất mạng khu xưởng A
@@ -177,7 +189,13 @@ Phòng ngừa:   Đi lại dây trong máng bảo vệ; thêm đường uplink t
 Người xử lý:  <tên>
 ```
 
-## Nguồn tham khảo
+## Cần nhớ :id=can-nho
+
+1. Hỏi **phạm vi** trước tiên: một máy, một khu hay cả nhà máy. Phạm vi chỉ ra thiết bị cần nghi ngờ.
+2. **Mỗi lần chỉ đổi một thứ**, kiểm tra lại rồi mới làm tiếp; sao lưu trước khi sửa.
+3. Sự cố chưa được **ghi lại** thì coi như chưa xử lý xong.
+
+## Nguồn tham khảo :id=nguon
 
 - CompTIA — [A Guide to Network Troubleshooting](https://www.comptia.org/content/guides/a-guide-to-network-troubleshooting)
 - Microsoft Learn — [Event 4199 and Windows client can't get an IP address](https://learn.microsoft.com/en-us/troubleshoot/windows-server/networking/event-4199-windows-client-cannot-get-ip-address-dhcp-server) · [Event 4740](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4740) · [Test-ComputerSecureChannel](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/test-computersecurechannel?view=powershell-5.1) · [Get-SmbOpenFile](https://learn.microsoft.com/en-us/powershell/module/smbshare/get-smbopenfile)

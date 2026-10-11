@@ -2,9 +2,11 @@
 
 Lệnh cho Ubuntu/Debian. Bản Red Hat (RHEL, Rocky, AlmaLinux) chỉ khác ở quản lý gói: dùng `dnf` thay cho `apt`.
 
-> Đọc xong: biết server đang có vấn đề gì trong 60 giây; quản lý dịch vụ, log, ổ đĩa, quyền; SSH và chép file an toàn.
+> Biết server đang có vấn đề gì trong 60 giây; quản lý dịch vụ, log, ổ đĩa, quyền; SSH và chép file an toàn.
 
-## Đọc tình trạng server trong 60 giây
+<p class="related">Liên quan: <a href="#/xu-ly-su-co?id=su-co-7">Server đầy ổ</a> · <a href="#/xu-ly-su-co?id=su-co-8">Server chậm</a> · <a href="#/mang?id=lenh-tuong-duong">Lệnh mạng các hệ điều hành</a></p>
+
+## Đọc tình trạng server trong 60 giây :id=server-60-giay
 
 Quy trình của Brendan Gregg (Netflix) khi vừa SSH vào một server có vấn đề. Chạy lần lượt, mỗi lệnh trả lời một câu hỏi:
 
@@ -149,7 +151,13 @@ sudo ufw status numbered
 
 ?> Cron chạy với biến môi trường tối thiểu: luôn dùng **đường dẫn tuyệt đối** cho lệnh và file trong script.
 
-## Nguồn tham khảo
+## Cần nhớ :id=can-nho
+
+1. Vào server có vấn đề: chạy theo thứ tự `uptime` → `dmesg -T` → `vmstat 1` → `iostat -xz 1` → `free -h`.
+2. Xoá log bằng `rm` không trả lại dung lượng nếu tiến trình còn giữ file: tìm bằng `lsof +L1`, dùng `truncate -s 0`.
+3. Kiểm tra cú pháp cấu hình **trước khi** restart dịch vụ; mở cổng 22 **trước khi** bật firewall.
+
+## Nguồn tham khảo :id=nguon
 
 - Brendan Gregg, Netflix — [Linux Performance Analysis in 60,000 Milliseconds](https://netflixtechblog.com/linux-performance-analysis-in-60-000-milliseconds-accc10403c55)
 - systemd — [systemctl(1)](https://manpages.ubuntu.com/manpages/noble/en/man1/systemctl.1.html) · [journalctl(1)](https://manpages.ubuntu.com/manpages/noble/en/man1/journalctl.1.html)

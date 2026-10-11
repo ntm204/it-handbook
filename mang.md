@@ -2,9 +2,11 @@
 
 Nền tảng để chẩn đoán mọi sự cố: một máy vào mạng diễn ra thế nào, địa chỉ IP, subnet, cổng, và lệnh kiểm tra trên từng hệ điều hành.
 
-> Đọc xong: nhìn triệu chứng là biết lỗi nằm ở bước nào; chia subnet không cần máy tính; kiểm tra mạng theo đúng thứ tự trên Linux, Windows, macOS và Cisco.
+> Nhìn triệu chứng là biết lỗi nằm ở bước nào; chia subnet không cần máy tính; kiểm tra mạng theo đúng thứ tự trên Linux, Windows, macOS và Cisco.
 
-## Mô hình TCP/IP
+<p class="related">Liên quan: <a href="#/xu-ly-su-co?id=su-co-1">Máy không vào mạng</a> · <a href="#/windows?id=mang">Lệnh mạng trên Windows</a> · <a href="#/thiet-bi-mang">Switch &amp; VLAN</a></p>
+
+## Mô hình TCP/IP :id=tcp-ip
 
 | Tầng | Gồm | Kiểm tra bằng |
 |---|---|---|
@@ -57,7 +59,7 @@ Mỗi bước hỏng cho ra **một triệu chứng riêng**:
 
 ?> WAN của router công ty nhận IP dải `100.64.x.x` nghĩa là nhà mạng đang NAT thêm một tầng: từ ngoài **không mở port vào được**, VPN site-to-site cũng gặp khó. Cần yêu cầu nhà mạng cấp IP công khai (public IP).
 
-## Chia subnet
+## Chia subnet :id=chia-subnet
 
 | CIDR | Subnet mask | Bước nhảy | Số máy dùng được |
 |---|---|---|---|
@@ -98,7 +100,7 @@ Số máy = 2^(32 − CIDR) − 2, vì trừ địa chỉ mạng và địa ch�
 | 161 | UDP | SNMP (giám sát thiết bị) | | 5432 | TCP | PostgreSQL |
 | 389 / 636 | TCP | LDAP / LDAPS | | 8080 | TCP | Web phụ, proxy |
 
-## Lệnh tương đương giữa các hệ điều hành
+## Lệnh tương đương giữa các hệ điều hành :id=lenh-tuong-duong
 
 | Việc | Linux | Windows | macOS | Cisco |
 |---|---|---|---|---|
@@ -113,7 +115,7 @@ Số máy = 2^(32 − CIDR) − 2, vì trừ địa chỉ mạng và địa ch�
 | Xin lại IP | `sudo networkctl renew <card>` | `ipconfig /release` → `/renew` | `sudo ipconfig set en0 DHCP` | — |
 | Xoá cache DNS | `resolvectl flush-caches` | `ipconfig /flushdns` | `sudo dscacheutil -flushcache` | — |
 
-## Quy trình kiểm tra 5 bước
+## Quy trình kiểm tra 5 bước :id=kiem-tra-5-buoc
 
 ```mermaid
 flowchart TD
@@ -167,7 +169,13 @@ sudo ip netns del a && sudo ip netns del b               # dọn dẹp
 
 Đổi IP máy b sang `10.0.1.2/24` rồi ping lại sẽ báo `Network is unreachable`: **khác subnet** thì phải có router mới nói chuyện được.
 
-## Nguồn tham khảo
+## Cần nhớ :id=can-nho
+
+1. Một máy vào mạng đi qua 4 bước **DHCP → ARP → DNS → TCP**; mỗi bước hỏng cho ra một triệu chứng riêng.
+2. `169.254.x.x` = không xin được IP · ping được `8.8.8.8` mà không vào web theo tên = lỗi DNS.
+3. Kiểm tra **từ dưới lên**: dây → IP → gateway → Internet → DNS. Không nhảy cóc.
+
+## Nguồn tham khảo :id=nguon
 
 - IETF — [RFC 1918](https://www.rfc-editor.org/rfc/rfc1918) (IP nội bộ) · [RFC 3927](https://www.rfc-editor.org/rfc/rfc3927) (link-local) · [RFC 6598](https://www.rfc-editor.org/rfc/rfc6598) (CGNAT) · [RFC 4632](https://www.rfc-editor.org/rfc/rfc4632) (CIDR)
 - IETF — [RFC 2131](https://www.rfc-editor.org/rfc/rfc2131) (DHCP) · [RFC 1034](https://www.rfc-editor.org/rfc/rfc1034) (DNS) · [RFC 9293](https://www.rfc-editor.org/rfc/rfc9293) (TCP)

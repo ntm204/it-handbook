@@ -1,15 +1,11 @@
-- **Bắt đầu**
-  - [Trang chủ](README.md)
-  - [Lộ trình nghề](nghe-nghiep.md)
-- **Nền tảng**
-  - [Mạng](mang.md)
-- **Hệ điều hành**
-  - [Linux server](linux.md)
-  - [Windows & Active Directory](windows.md)
-- **Thiết bị**
-  - [Switch & Firewall](thiet-bi-mang.md)
-- **Thực chiến**
-  - [Xử lý sự cố](xu-ly-su-co.md)
-- **Máy này**
-  - [Máy Mac](may-mac.md)
-  - [This Mac (English)](may-mac.en.md)
+- [Lộ trình nghề](nghe-nghiep.md)
+- [Mạng](mang.md)
+- [Linux server](linux.md)
+- [Windows & AD](windows.md)
+- [Switch & Firewall](thiet-bi-mang.md)
+- [Xử lý sự cố](xu-ly-su-co.md)
+
+---
+
+- [Máy Mac](may-mac.md)
+- [This Mac (EN)](may-mac.en.md)

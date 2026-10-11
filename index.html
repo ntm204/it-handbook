@@ -15,15 +15,47 @@
   <div id="app"></div>
   <script>
     window.$docsify = {
-      name: "Sổ tay IT",
+      name: '<span class="logo-prompt">~$</span>sổ tay <b>IT</b>',
+      nameLink: "#/",
       homepage: "README.md",
       loadSidebar: true,
       subMaxLevel: 2,
       auto2top: true,
-      search: { placeholder: "Tìm lệnh, chủ đề…", noData: "Không tìm thấy", depth: 3 },
+      search: { placeholder: "Tìm lệnh, sự cố…", noData: "Không tìm thấy", depth: 3 },
       copyCode: { buttonText: "Copy", successText: "Đã copy", errorText: "Lỗi" },
       pagination: { previousText: "Trước", nextText: "Tiếp", crossChapter: true, crossChapterText: false },
+      plugins: [
+        // Bấm vào lệnh trong bảng để copy — thao tác dùng nhiều nhất
+        function (hook) {
+          hook.doneEach(function () {
+            document.querySelectorAll(".markdown-section td code").forEach(function (el) {
+              el.title = "Bấm để copy";
+              el.onclick = function () {
+                navigator.clipboard.writeText(el.innerText).then(function () { toast("Đã copy: " + el.innerText); });
+              };
+            });
+          });
+        },
+      ],
     };
+
+    function toast(text) {
+      var t = document.getElementById("toast");
+      if (!t) { t = document.createElement("div"); t.id = "toast"; document.body.appendChild(t); }
+      t.textContent = text;
+      t.classList.add("show");
+      clearTimeout(t._h);
+      t._h = setTimeout(function () { t.classList.remove("show"); }, 1600);
+    }
+
+    // Gõ "/" ở bất kỳ đâu để tìm
+    document.addEventListener("keydown", function (e) {
+      var tag = (e.target.tagName || "").toLowerCase();
+      if (e.key === "/" && tag !== "input" && tag !== "textarea") {
+        var input = document.querySelector(".search input");
+        if (input) { e.preventDefault(); input.focus(); input.select(); }
+      }
+    });
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
   <script>
