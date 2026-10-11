@@ -1,29 +1,33 @@
 # Sổ tay IT
 
-Tài liệu học và tra cứu thực chiến: **hệ thống, server, mạng**. Ngắn gọn, đúng lệnh, dùng được ngay.
+Tra cứu và học thực chiến về hệ thống, server, mạng. Chỉ giữ những gì dùng được ngay, mỗi trang đều dẫn nguồn chính thống.
 
-## Đọc theo thứ tự
+<div class="cards">
+<a class="card" href="#/nghe-nghiep"><span class="card-step">01 · ĐỊNH HƯỚNG</span><span class="card-title">Lộ trình nghề</span><span class="card-desc">Các vị trí, IT trong nhà máy, mô hình tách mạng IT/OT, thứ tự học, chứng chỉ.</span></a>
+<a class="card" href="#/mang"><span class="card-step">02 · NỀN TẢNG</span><span class="card-title">Mạng</span><span class="card-desc">Một máy vào mạng ra sao, chia subnet, cổng, lệnh tương đương giữa các hệ điều hành.</span></a>
+<a class="card" href="#/linux"><span class="card-step">03 · HỆ ĐIỀU HÀNH</span><span class="card-title">Linux server</span><span class="card-desc">Đọc tình trạng server trong 60 giây, dịch vụ, log, ổ đĩa, quyền, SSH.</span></a>
+<a class="card" href="#/windows"><span class="card-step">04 · HỆ ĐIỀU HÀNH</span><span class="card-title">Windows &amp; Active Directory</span><span class="card-desc">Lệnh cmd, PowerShell, quản lý tài khoản domain, truy tìm nguồn gây khoá tài khoản.</span></a>
+<a class="card" href="#/thiet-bi-mang"><span class="card-step">05 · THIẾT BỊ</span><span class="card-title">Switch &amp; Firewall</span><span class="card-desc">Cisco IOS, HPE/Aruba, FortiGate: xem, cấu hình VLAN, tìm lỗi cổng, lần dấu gói tin.</span></a>
+<a class="card" href="#/xu-ly-su-co"><span class="card-step">06 · THỰC CHIẾN</span><span class="card-title">Xử lý sự cố</span><span class="card-desc">Quy trình 7 bước chuẩn CompTIA và 10 sự cố hay gặp nhất, kèm mẫu báo cáo.</span></a>
+</div>
 
-| Bước | Trang | Để làm gì |
-|---|---|---|
-| 1 | [Bản đồ nghề](nghe-nghiep.md) | Biết có những vị trí nào, ở khu công nghiệp làm gì, học theo lộ trình nào |
-| 2 | [Mạng](mang.md) | Nền tảng: IP, subnet, cổng, quy trình kiểm tra mạng |
-| 3 | [Linux server](linux.md) | Quản trị server Linux |
-| 4 | [Windows & Active Directory](windows.md) | Quản trị máy Windows, tài khoản domain |
-| 5 | [Switch & Firewall](thiet-bi-mang.md) | Cấu hình switch Cisco, firewall FortiGate |
-| 6 | [Xử lý sự cố](xu-ly-su-co.md) | Quy trình xử lý các sự cố hay gặp nhất |
+## Cách đọc
 
-## Quy ước
+| Ký hiệu | Ý nghĩa |
+|---|---|
+| `<ip>`, `<tên>` | Thay bằng giá trị của bạn, ví dụ `<ip>` → `192.168.1.10` |
+| `sudo` · **Run as administrator** | Lệnh cần quyền quản trị (Linux · Windows) |
+| Hộp **i** | Ghi chú nên biết |
+| Hộp **!** | Cảnh báo: làm sai có thể mất dữ liệu hoặc mất kết nối |
+| Hộp **◎** | Mục tiêu: đọc xong trang bạn làm được gì |
 
-- `<...>` là phần thay bằng giá trị của bạn, ví dụ `<ip>` → `192.168.1.10`.
-- Lệnh có `sudo` (Linux) hoặc cần **Run as Administrator** (Windows) là lệnh cần quyền quản trị.
-- Thuật ngữ giữ tiếng Anh kèm giải thích, vì tài liệu kỹ thuật và giao diện thiết bị đều dùng tiếng Anh.
-- Ô tìm kiếm ở góc trên bên trái tìm được trong mọi trang.
+Thuật ngữ giữ tiếng Anh kèm giải thích, vì giao diện thiết bị và tài liệu gốc đều dùng tiếng Anh.
 
 ## Thực hành ở đâu
 
-| Mảng | Nơi thực hành |
-|---|---|
-| Linux, mạng | Máy Linux `lab`: `orb -m lab` |
-| Switch Cisco | Cisco Packet Tracer (miễn phí, đăng ký tài khoản Cisco Networking Academy) |
-| Windows | PowerShell chạy được trên Mac: `brew install powershell` rồi gõ `pwsh` (lệnh Active Directory chỉ chạy trên Windows) |
+| Mảng | Môi trường | Bắt đầu |
+|---|---|---|
+| Linux, mạng | Máy Linux `lab` (Ubuntu trong OrbStack) | `orb -m lab` |
+| Switch, router Cisco | Cisco Packet Tracer, miễn phí với tài khoản Networking Academy | [netacad.com](https://www.netacad.com/cisco-packet-tracer) |
+| PowerShell | Chạy được trên Mac (lệnh Active Directory cần Windows) | `brew install powershell` → `pwsh` |
+| Bắt gói tin | Wireshark trên Mac | mở ứng dụng Wireshark |

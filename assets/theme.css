@@ -1,0 +1,391 @@
+/* Sổ tay IT — giao diện. Dựng trên vue.css của docsify, ghi đè toàn bộ màu và thành phần. */
+
+/* ── Màu & chữ ── */
+:root {
+  --bg: #ffffff;
+  --surface: #f7f8fa;
+  --surface-2: #eef0f3;
+  --border: #e3e6ea;
+  --text: #1f2328;
+  --muted: #5d6670;
+  --accent: #2563eb;
+  --accent-soft: #eef3ff;
+  --code-bg: #f3f4f6;
+  --code-text: #0b3a8a;
+  --pre-bg: #f6f8fa;
+  --warn: #b45309;
+  --warn-soft: #fff7ed;
+  --danger: #b42318;
+  --danger-soft: #fef3f2;
+  --shadow: 0 1px 2px rgba(16, 24, 40, .05), 0 1px 3px rgba(16, 24, 40, .06);
+  --radius: 10px;
+  --font: "Be Vietnam Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --theme-color: var(--accent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0d1117;
+    --surface: #11161d;
+    --surface-2: #171d26;
+    --border: #262d38;
+    --text: #e6edf3;
+    --muted: #949ca6;
+    --accent: #6ea8fe;
+    --accent-soft: rgba(110, 168, 254, .10);
+    --code-bg: #1b2230;
+    --code-text: #a5c8ff;
+    --pre-bg: #121821;
+    --warn: #f0b35a;
+    --warn-soft: rgba(240, 179, 90, .09);
+    --danger: #ff8a7a;
+    --danger-soft: rgba(255, 138, 122, .09);
+    --shadow: none;
+    color-scheme: dark;
+  }
+}
+
+html, body { background: var(--bg); }
+body {
+  font-family: var(--font);
+  color: var(--text);
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--accent-soft); color: var(--text); }
+a { color: var(--accent); }
+
+/* ── Thanh bên ── */
+.sidebar {
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding-top: 0;
+  width: 280px;
+}
+.sidebar > h1 {
+  margin: 22px 20px 6px;
+  text-align: left;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+.sidebar > h1 a { color: var(--text); display: inline-flex; align-items: center; gap: 10px; }
+.sidebar > h1 a::before {
+  content: "IT";
+  display: inline-grid;
+  place-items: center;
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+.sidebar-nav { padding: 6px 12px 40px; }
+.sidebar ul { margin: 0; }
+.sidebar li { margin: 0; }
+.sidebar ul li a { line-height: 1.45; }
+.sidebar-nav > ul > li { margin-bottom: 16px; }
+.sidebar-nav > ul > li > ul > li { margin: 1px 0; }
+.sidebar-nav > ul > li > p,
+.sidebar-nav > ul > li > strong {
+  display: block;
+  margin: 0 0 4px;
+  padding: 0 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.sidebar ul li a {
+  display: block;
+  padding: 6px 10px;
+  border-radius: 7px;
+  color: var(--muted);
+  font-size: 14px;
+  border: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sidebar ul li a:hover { color: var(--text); background: var(--surface-2); text-decoration: none; }
+.sidebar ul li.active > a {
+  color: var(--accent);
+  background: var(--accent-soft);
+  font-weight: 600;
+  border-right: 0;
+}
+.sidebar ul li ul.app-sub-sidebar { margin: 2px 0 6px 10px; border-left: 1px solid var(--border); }
+.sidebar ul li ul.app-sub-sidebar li a { font-size: 13px; padding: 4px 10px; }
+.sidebar ul li ul.app-sub-sidebar li::before { display: none; }
+.sidebar ul li ul.app-sub-sidebar li.active > a { background: none; color: var(--accent); }
+
+/* ── Tìm kiếm ── */
+.sidebar .search {
+  margin: 0;
+  padding: 16px 16px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+.search .input-wrap { border-radius: 8px; overflow: hidden; }
+.sidebar .search input {
+  font-family: var(--font);
+  font-size: 14px;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  transition: border-color .15s, box-shadow .15s;
+}
+.sidebar .search input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.sidebar .search .clear-button { right: 6px; }
+.search .results-panel .matching-post { border-bottom: 1px solid var(--border); padding: 6px 4px; }
+.search .matching-post h2 { font-size: 14px; color: var(--text); margin: 4px 0; }
+.search .matching-post p { font-size: 12.5px; color: var(--muted); }
+.search .search-keyword { color: var(--accent); font-style: normal; font-weight: 600; }
+.search p.empty { color: var(--muted); }
+
+/* ── Nút ẩn/hiện thanh bên ── */
+.sidebar-toggle { background: transparent; width: 280px; }
+.sidebar-toggle span { background: var(--muted); }
+body.close .sidebar-toggle { background: transparent; }
+
+/* ── Nội dung ── */
+.content { left: 280px; }
+.markdown-section {
+  max-width: 860px;
+  padding: 48px 48px 64px;
+  color: var(--text);
+  line-height: 1.7;
+}
+.markdown-section h1 {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  line-height: 1.25;
+  margin: 0 0 10px;
+}
+.markdown-section h1 + p { font-size: 16.5px; color: var(--muted); margin-bottom: 28px; }
+.markdown-section h2 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  margin: 48px 0 14px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.markdown-section h3 { font-size: 17px; font-weight: 600; margin: 28px 0 10px; }
+.markdown-section h1, .markdown-section h2, .markdown-section h3,
+.markdown-section h4, .markdown-section h5, .markdown-section h6 { color: var(--text); }
+.markdown-section h1 a, .markdown-section h2 a, .markdown-section h3 a { color: inherit; }
+.markdown-section .anchor span { color: var(--text); }   /* vue.css tô cứng màu chữ tiêu đề */
+.markdown-section strong { color: var(--text); font-weight: 600; }
+.markdown-section p, .markdown-section li { color: var(--text); }
+.markdown-section ul, .markdown-section ol { padding-left: 22px; }
+.markdown-section li { margin: 4px 0; }
+.markdown-section hr { border: 0; border-top: 1px solid var(--border); margin: 40px 0; }
+
+/* ── Bảng ── */
+.markdown-section table {
+  display: table;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 16px 0 24px;
+  font-size: 14px;
+  box-shadow: var(--shadow);
+}
+.markdown-section th {
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 10px 14px;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+}
+.markdown-section td {
+  padding: 10px 14px;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.markdown-section tr { background: transparent; border: 0; }
+.markdown-section tr:nth-child(2n) { background: transparent; }
+.markdown-section tbody tr:last-child td { border-bottom: 0; }
+.markdown-section tbody tr:hover { background: var(--surface); }
+
+/* ── Code ── */
+.markdown-section code {
+  font-family: var(--mono);
+  font-size: .86em;
+  background: var(--code-bg);
+  color: var(--code-text);
+  border-radius: 5px;
+  padding: 2px 6px;
+  margin: 0;
+}
+.markdown-section td code, .markdown-section li code, .markdown-section p code { white-space: nowrap; }
+.markdown-section pre {
+  background: var(--pre-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0;
+  margin: 14px 0 22px;
+}
+.markdown-section pre > code {
+  font-size: 13.5px;
+  line-height: 1.65;
+  padding: 16px 18px;
+  background: transparent;
+  color: var(--text);
+  white-space: pre;
+}
+.markdown-section pre::after { display: none; } /* bỏ nhãn ngôn ngữ của docsify */
+.token.comment, .token.prolog { color: var(--muted); font-style: normal; }
+.token.string, .token.attr-value { color: #16a34a; }
+.token.keyword, .token.builtin, .token.function { color: var(--accent); }
+.token.number, .token.boolean, .token.variable { color: var(--warn); }
+.token.operator, .token.punctuation { color: var(--muted); }
+@media (prefers-color-scheme: dark) { .token.string, .token.attr-value { color: #7ee2a8; } }
+
+.docsify-copy-code-button {
+  font-family: var(--font) !important;
+  font-size: 12px !important;
+  background: var(--surface-2) !important;
+  color: var(--muted) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 6px !important;
+  padding: 3px 10px !important;
+  top: 8px !important;
+  right: 8px !important;
+}
+.docsify-copy-code-button:hover { color: var(--text) !important; }
+
+/* ── Hộp lưu ý ──
+   ?> nội dung   → Ghi chú (xanh)
+   !> nội dung   → Cảnh báo (đỏ)
+   > nội dung    → Mục tiêu trang / trích dẫn */
+.markdown-section p.warn,
+.markdown-section p.tip,
+.markdown-section blockquote {
+  position: relative;
+  border-radius: var(--radius);
+  padding: 12px 16px 12px 44px;
+  margin: 16px 0 22px;
+  font-size: 14.5px;
+  border: 1px solid transparent;
+}
+.markdown-section p.warn { background: var(--accent-soft); border-color: color-mix(in srgb, var(--accent) 25%, transparent); color: var(--text); }
+.markdown-section p.tip { background: var(--danger-soft); border-color: color-mix(in srgb, var(--danger) 25%, transparent); color: var(--text); }
+.markdown-section p.tip::before, .markdown-section p.warn::before {
+  position: absolute; left: 14px; top: 12px;
+  width: 20px; height: 20px; border-radius: 50%;
+  display: grid; place-items: center;
+  font-size: 12px; font-weight: 700; color: #fff;
+  font-family: var(--font); line-height: 1;
+}
+.markdown-section p.warn::before { content: "i"; background: var(--accent); }
+.markdown-section p.tip::before { content: "!"; background: var(--danger); top: 12px; left: 14px; transform: none; }
+.markdown-section p.tip code, .markdown-section p.warn code { background: transparent; padding: 0; }
+.markdown-section blockquote { background: var(--surface); border-color: var(--border); color: var(--text); }
+.markdown-section blockquote::before {
+  content: "◎"; position: absolute; left: 15px; top: 11px; color: var(--accent); font-size: 16px;
+}
+.markdown-section blockquote p { margin: 0; color: var(--text); font-weight: 500; }
+
+kbd {
+  font-family: var(--mono);
+  font-size: 12px;
+  padding: 2px 6px;
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+/* ── Sơ đồ (mermaid) ── */
+.markdown-section .mermaid {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  margin: 16px 0 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow-x: auto;
+}
+
+/* ── Trang chủ: thẻ ── */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; margin: 20px 0 32px; }
+.cards a.card {
+  display: block;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg);
+  box-shadow: var(--shadow);
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color .15s, transform .15s;
+}
+.cards a.card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.card .card-step { font-size: 12px; font-weight: 600; color: var(--accent); letter-spacing: .04em; }
+.card .card-title { display: block; font-size: 16px; font-weight: 700; margin: 4px 0 6px; }
+.card .card-desc { display: block; font-size: 13.5px; color: var(--muted); line-height: 1.55; }
+
+/* ── Nguồn tham khảo ── */
+.markdown-section h2#nguồn-tham-khảo + ul { font-size: 13.5px; }
+.markdown-section h2#nguồn-tham-khảo + ul li { color: var(--muted); }
+
+/* ── Chuyển trang ── */
+.docsify-pagination-container {
+  max-width: 860px;
+  margin: 0 48px 48px;
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+  gap: 12px;
+}
+.pagination-item { margin: 0; }
+.pagination-item a {
+  display: block;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  min-width: 220px;
+  color: var(--text);
+}
+.pagination-item a:hover { border-color: var(--accent); text-decoration: none; }
+.pagination-item-label { color: var(--muted); font-size: 12px; }
+.pagination-item-label svg { display: none; }
+.pagination-item-title { font-size: 15px; font-weight: 600; color: var(--text); }
+.pagination-item--next { margin-left: auto; text-align: right; }
+
+/* ── Thanh cuộn ── */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; border: 2px solid var(--bg); }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* ── Màn hình nhỏ ── */
+@media (max-width: 768px) {
+  .sidebar { width: 280px; }
+  .markdown-section { padding: 28px 20px 48px; }
+  .docsify-pagination-container { margin: 0 20px 32px; }
+  .pagination-item a { min-width: 0; }
+  .content { left: 0; }
+  .markdown-section h1 { font-size: 26px; }
+  .markdown-section td code, .markdown-section p code, .markdown-section li code { white-space: normal; word-break: break-word; }
+  .markdown-section table { display: block; overflow-x: auto; }   /* chỉ bảng cuộn ngang, trang không tràn */
+  .markdown-section pre > code { font-size: 12.5px; }
+  .cards { grid-template-columns: 1fr; }
+}
