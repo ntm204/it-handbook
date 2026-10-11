@@ -1,0 +1,3 @@
+#!/bin/sh
+# Cập nhật ngày sửa của từng trang trước mỗi commit
+python3 scripts/meta.py && git add assets/meta.json

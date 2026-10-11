@@ -117,7 +117,7 @@ Người dùng báo *"file đang được người khác mở"*: trên file serv
 
 | Thông báo / dấu hiệu | Nguyên nhân | Xử lý |
 |---|---|---|
-| *The referenced account is currently locked out* | Tài khoản bị khoá | `Unlock-ADAccount <tên>`; khoá lại liên tục thì [tìm máy gây khoá](windows.md?id=active-directory) (event 4740) |
+| *The referenced account is currently locked out* | Tài khoản bị khoá | `Unlock-ADAccount <tên>`; khoá lại liên tục thì [tìm máy gây khoá](windows.md?id=tim-may-gay-khoa) (event 4740) |
 | *The trust relationship … failed* | Máy mất liên kết domain | `Test-ComputerSecureChannel -Repair -Credential (Get-Credential)` |
 | Báo lỗi thời gian, Kerberos | Giờ máy lệch quá 5 phút | `w32tm /resync`, kiểm tra pin CMOS |
 | *Your password has expired* | Hết hạn mật khẩu | `Set-ADAccountPassword` + `-ChangePasswordAtLogon $true` |
@@ -188,6 +188,36 @@ Xử lý:        Thay dây tạm, chuyển uplink sang cổng dự phòng
 Phòng ngừa:   Đi lại dây trong máng bảo vệ; thêm đường uplink thứ hai
 Người xử lý:  <tên>
 ```
+
+## Tự kiểm tra: tình huống :id=tu-kiem-tra
+
+<details>
+<summary>8 giờ sáng, cả phòng kế toán (12 máy) không vào được mạng, các phòng khác bình thường. Bắt đầu từ đâu?</summary>
+
+Phạm vi một khu → nghi **thiết bị chung của khu đó**: switch phòng kế toán (có điện không, đèn uplink), dây uplink, cổng trên core (`show interfaces status`). Không đi kiểm tra từng máy.
+
+</details>
+
+<details>
+<summary>Một người dùng: "Sáng nay máy tôi vào mạng bình thường, chiều thì không". <code>ipconfig</code> ra <code>169.254.x.x</code>. Các máy bên cạnh vẫn bình thường.</summary>
+
+Không xin được IP, chỉ một máy → dây hoặc cổng switch của máy đó (err-disabled, sai VLAN), hoặc card mạng. Kiểm tra đèn cổng, đổi dây, xem `show interfaces status` của cổng đó.
+
+</details>
+
+<details>
+<summary>Người dùng mới chuyển phòng, cắm máy vào ổ mạng ở bàn mới thì nhận IP dải camera.</summary>
+
+Cổng switch ở bàn mới thuộc **VLAN camera**. Đổi cổng sang đúng VLAN: `switchport access vlan <vlan-văn-phòng>`, rồi `ipconfig /renew` trên máy.
+
+</details>
+
+<details>
+<summary>Web nội bộ trả về lỗi 502 sau khi đội phát triển vừa cập nhật ứng dụng.</summary>
+
+502 = proxy (nginx) không gọi được ứng dụng phía sau → ứng dụng đã dừng sau khi cập nhật. Trên server: `systemctl status <ứng-dụng>`, `journalctl -u <ứng-dụng> -n 50` để xem lỗi khởi động.
+
+</details>
 
 ## Cần nhớ :id=can-nho
 

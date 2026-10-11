@@ -4,11 +4,51 @@ Lệnh cho Ubuntu/Debian. Bản Red Hat (RHEL, Rocky, AlmaLinux) chỉ khác ở
 
 > Biết server đang có vấn đề gì trong 60 giây; quản lý dịch vụ, log, ổ đĩa, quyền; SSH và chép file an toàn.
 
-<p class="related">Liên quan: <a href="#/xu-ly-su-co?id=su-co-7">Server đầy ổ</a> · <a href="#/xu-ly-su-co?id=su-co-8">Server chậm</a> · <a href="#/mang?id=lenh-tuong-duong">Lệnh mạng các hệ điều hành</a></p>
+<p class="related">Liên quan: <a href="#/xu-ly-su-co?id=su-co-7">Server đầy ổ</a> · <a href="#/xu-ly-su-co?id=su-co-8">Server chậm</a> · <a href="#/lab/03-day-o">Lab 3: server đầy ổ</a> · <a href="#/lab/04-dich-vu-systemd">Lab 4: tự viết dịch vụ</a></p>
 
-## Đọc tình trạng server trong 60 giây :id=server-60-giay
+## Hiểu :id=hieu
 
-Quy trình của Brendan Gregg (Netflix) khi vừa SSH vào một server có vấn đề. Chạy lần lượt, mỗi lệnh trả lời một câu hỏi:
+### Dịch vụ và log: systemd :id=systemd
+
+Trên Linux hiện đại, **systemd** là chương trình chạy đầu tiên khi khởi động. Nó khởi động và trông coi mọi dịch vụ khác.
+
+| Khái niệm | Nghĩa là |
+|---|---|
+| **Unit** | Một thứ systemd quản lý: dịch vụ (`nginx.service`), lịch chạy (`.timer`), điểm gắn ổ (`.mount`) |
+| **enable** / **start** | `enable`: tự chạy khi khởi động máy · `start`: chạy ngay bây giờ. Hai việc độc lập |
+| **journal** | Nơi systemd gom log của mọi dịch vụ, đọc bằng `journalctl` |
+| **Restart=** | systemd tự khởi động lại dịch vụ khi nó chết, nếu được cấu hình |
+
+?> Dịch vụ "đang chạy nhưng khởi động lại máy thì mất": đã `start` mà chưa `enable`.
+
+### Quyền file :id=quyen-file
+
+Đọc quyền trong `ls -l`, ví dụ `-rwxr-x---`:
+
+| Vị trí | Ký tự | Ai | Quyền | Số |
+|---|---|---|---|---|
+| 2–4 | `rwx` | Chủ sở hữu | đọc, ghi, chạy | 4+2+1 = **7** |
+| 5–7 | `r-x` | Nhóm | đọc, chạy | 4+0+1 = **5** |
+| 8–10 | `---` | Người khác | không | **0** |
+
+→ Đặt bằng `chmod 750 <file>`. Đổi chủ bằng `sudo chown <user>:<nhóm> <file>`.
+
+Với **thư mục**, `x` nghĩa là được **đi vào** thư mục. Có `r` mà không có `x` thì chỉ xem được tên file, không mở được file bên trong.
+
+### Ổ đĩa đầy theo hai cách :id=o-day
+
+| Kiểu đầy | Thấy bằng | Hay do |
+|---|---|---|
+| Hết **dung lượng** | `df -h` gần 100% | Log, backup, file tạm, image Docker |
+| Hết **inode** (số lượng file) | `df -i` gần 100%, trong khi `df -h` vẫn còn trống | Hàng triệu file nhỏ: session, cache, mail queue |
+
+Hết inode cũng báo `No space left on device` y như hết dung lượng, nên rất dễ chẩn đoán nhầm.
+
+## Làm :id=lam
+
+### Đọc tình trạng server trong 60 giây :id=server-60-giay
+
+Quy trình của Brendan Gregg (Netflix) khi vừa SSH vào một server có vấn đề:
 
 | # | Lệnh | Trả lời câu hỏi |
 |---|---|---|
@@ -23,100 +63,46 @@ Quy trình của Brendan Gregg (Netflix) khi vừa SSH vào một server có v�
 | 9 | `sar -n TCP,ETCP 1` | Có nhiều kết nối mới, có gửi lại gói (`retrans/s`) không |
 | 10 | `htop` | Nhìn tổng thể lần cuối |
 
-?> Lệnh 4, 5, 6, 8, 9 nằm trong gói `sysstat`: `sudo apt install sysstat`. Bấm <kbd>Ctrl</kbd>+<kbd>C</kbd> để dừng các lệnh chạy liên tục.
+?> Lệnh 4, 5, 6, 8, 9 nằm trong gói `sysstat`. Bấm <kbd>Ctrl</kbd>+<kbd>C</kbd> để dừng các lệnh chạy liên tục.
 
-## Thông tin máy
-
-| Việc | Lệnh |
-|---|---|
-| Tên máy, hệ điều hành, kernel | `hostnamectl` |
-| IP các card mạng (gọn) | `ip -br a` |
-| RAM · CPU | `free -h` · `lscpu` |
-| Dịch vụ nào làm khởi động chậm | `systemd-analyze blame` |
-| Ai đang đăng nhập | `who` |
-
-## Dịch vụ (systemd)
+### Quản lý dịch vụ :id=dich-vu
 
 ```bash
 systemctl status nginx                 # trạng thái và vài dòng log gần nhất
+sudo nginx -t                          # kiểm tra cấu hình TRƯỚC khi restart
 sudo systemctl restart nginx           # khởi động lại
 sudo systemctl reload nginx            # nạp lại cấu hình, không ngắt kết nối đang có
-sudo systemctl enable --now nginx      # bật ngay và tự chạy khi khởi động máy
+sudo systemctl enable --now nginx      # chạy ngay và tự chạy khi khởi động máy
 systemctl --failed                     # dịch vụ đang lỗi
-systemctl list-units --type=service --state=running
 ```
 
-?> Sửa file cấu hình của dịch vụ xong, kiểm tra cú pháp **trước khi** restart: `sudo nginx -t`, `sudo sshd -t`. Restart với cấu hình sai là dịch vụ chết.
-
-## Log
+### Đọc log :id=log
 
 ```bash
 journalctl -u nginx -f                       # theo dõi trực tiếp
 journalctl -u nginx --since "1 hour ago"
 journalctl -p err -b                         # chỉ lỗi, từ lần khởi động gần nhất
-journalctl -b -1 -p err                      # lỗi của lần khởi động TRƯỚC (máy tự khởi động lại thì xem cái này)
-journalctl --disk-usage
+journalctl -b -1 -p err                      # lỗi của lần khởi động TRƯỚC (máy vừa tự khởi động lại)
 sudo journalctl --vacuum-time=7d             # chỉ giữ log 7 ngày
 ```
 
-## Ổ đĩa
-
-| Việc | Lệnh |
-|---|---|
-| Dung lượng các phân vùng | `df -h` |
-| Hết **inode** (còn dung lượng mà vẫn báo đầy) | `df -i` |
-| Thư mục nặng nhất | `sudo du -xh --max-depth=1 / \| sort -rh \| head` |
-| File lớn hơn 500 MB | `sudo find / -xdev -type f -size +500M` |
-| **File đã xoá nhưng vẫn chiếm chỗ** | `sudo lsof +L1` |
-| Danh sách ổ, phân vùng | `lsblk` |
-
-!> Xoá file log đang được ghi bằng `rm` **không giải phóng dung lượng**: tiến trình vẫn giữ file, `lsof +L1` sẽ hiện nó kèm chữ `(deleted)`. Làm rỗng file thay vì xoá: `sudo truncate -s 0 <file>`, hoặc restart tiến trình đang giữ file.
-
-## Tiến trình
-
-| Việc | Lệnh |
-|---|---|
-| Tốn RAM nhất · tốn CPU nhất | `ps aux --sort=-%mem \| head` · `ps aux --sort=-%cpu \| head` |
-| Tìm theo tên | `pgrep -fl <tên>` |
-| Dừng · dừng cưỡng bức | `kill <PID>` · `kill -9 <PID>` |
-| Tiến trình nào đang dùng cổng | `sudo ss -tulpn \| grep :<cổng>` |
-| Kết nối đang mở tới server | `sudo ss -tnp state established` |
-
-?> `kill` (mặc định gửi SIGTERM) cho chương trình cơ hội dọn dẹp và lưu dữ liệu. Chỉ dùng `kill -9` khi `kill` không có tác dụng.
-
-## Người dùng & quyền
+### Xử lý ổ đầy :id=xu-ly-o-day
 
 ```bash
-sudo adduser <tên>
-sudo usermod -aG sudo <tên>            # thêm vào nhóm sudo; thiếu -a sẽ BỊ XOÁ khỏi các nhóm khác
-id <tên>                               # thuộc những nhóm nào
-sudo -l                                # mình được chạy gì bằng sudo
+df -h && df -i                                   # đầy dung lượng hay đầy inode
+sudo du -xh --max-depth=1 / | sort -rh | head    # thư mục nặng nhất, đi sâu dần
+sudo lsof +L1                                    # file đã xoá nhưng vẫn bị giữ
+sudo truncate -s 0 /var/log/<file>.log           # làm rỗng log thay vì xoá
 ```
 
-**Đọc quyền** trong `ls -l`, ví dụ `-rwxr-x---`:
+!> Xoá file log đang được ghi bằng `rm` **không giải phóng dung lượng**: tiến trình vẫn giữ file, `lsof +L1` hiện nó kèm chữ `(deleted)`. Làm rỗng bằng `truncate`, hoặc restart tiến trình đang giữ file. Thực hành: [Lab 3](lab/03-day-o.md).
 
-| Vị trí | Ký tự | Ai | Quyền | Số |
-|---|---|---|---|---|
-| 2–4 | `rwx` | Chủ sở hữu | đọc, ghi, chạy | 4+2+1 = **7** |
-| 5–7 | `r-x` | Nhóm | đọc, chạy | 4+0+1 = **5** |
-| 8–10 | `---` | Người khác | không | **0** |
-
-→ `chmod 750 <file>`. Đổi chủ: `sudo chown <user>:<nhóm> <file>`.
-
-## Phần mềm
-
-| Việc | Ubuntu / Debian | RHEL / Rocky |
-|---|---|---|
-| Cập nhật danh sách · nâng cấp | `sudo apt update && sudo apt upgrade` | `sudo dnf upgrade` |
-| Cài · gỡ | `sudo apt install <gói>` · `sudo apt remove <gói>` | `sudo dnf install <gói>` · `sudo dnf remove <gói>` |
-| Lệnh này thuộc gói nào | `dpkg -S $(command -v <lệnh>)` | `rpm -qf $(command -v <lệnh>)` |
-
-## SSH & chép file
+### SSH & chép file :id=ssh
 
 ```bash
 ssh-keygen -t ed25519                              # tạo khoá, một lần trên máy mình
 ssh-copy-id <user>@<ip>                            # từ nay đăng nhập bằng khoá
-rsync -avz --progress <thư-mục>/ <user>@<ip>:/backup/<thư-mục>/   # chỉ chép phần thay đổi, chạy lại được
+rsync -avz --progress <thư-mục>/ <user>@<ip>:/backup/<thư-mục>/   # chỉ chép phần thay đổi
 scp <file> <user>@<ip>:/tmp/                       # chép nhanh một file
 ```
 
@@ -130,7 +116,7 @@ Host web1
 
 ?> Dấu `/` cuối thư mục nguồn trong `rsync` quan trọng: `src/` chép **nội dung bên trong**, `src` chép **cả thư mục** `src`.
 
-## Firewall (ufw)
+### Firewall (ufw) :id=firewall
 
 ```bash
 sudo ufw allow 22/tcp                                     # mở SSH TRƯỚC
@@ -139,9 +125,9 @@ sudo ufw enable
 sudo ufw status numbered
 ```
 
-!> Bật `ufw` trên server từ xa mà quên mở cổng 22 là **mất kết nối SSH ngay lập tức**, phải ra tận máy mới vào lại được.
+!> Bật `ufw` trên server từ xa mà quên mở cổng 22 là **mất kết nối SSH ngay lập tức**.
 
-## Lịch chạy định kỳ (cron)
+### Chạy định kỳ (cron) :id=cron
 
 ```
 # phút  giờ  ngày  tháng  thứ   lệnh                    (crontab -e để sửa)
@@ -149,13 +135,84 @@ sudo ufw status numbered
   */15  *    *     *      1-5   /opt/scripts/check.sh    # mỗi 15 phút, thứ 2 đến thứ 6
 ```
 
-?> Cron chạy với biến môi trường tối thiểu: luôn dùng **đường dẫn tuyệt đối** cho lệnh và file trong script.
+?> Cron chạy với biến môi trường tối thiểu: luôn dùng **đường dẫn tuyệt đối** trong script.
+
+## Tra :id=tra
+
+### Thông tin máy :id=thong-tin
+
+| Việc | Lệnh |
+|---|---|
+| Tên máy, hệ điều hành, kernel | `hostnamectl` |
+| IP các card mạng (gọn) | `ip -br a` |
+| RAM · CPU | `free -h` · `lscpu` |
+| Dịch vụ nào làm khởi động chậm | `systemd-analyze blame` |
+| Ai đang đăng nhập | `who` |
+
+### Tiến trình :id=tien-trinh
+
+| Việc | Lệnh |
+|---|---|
+| Tốn RAM nhất · tốn CPU nhất | `ps aux --sort=-%mem \| head` · `ps aux --sort=-%cpu \| head` |
+| Tìm theo tên | `pgrep -fl <tên>` |
+| Dừng · dừng cưỡng bức | `kill <PID>` · `kill -9 <PID>` |
+| Tiến trình nào đang dùng cổng | `sudo ss -tulpn \| grep :<cổng>` |
+| Kết nối đang mở tới server | `sudo ss -tnp state established` |
+
+### Người dùng :id=nguoi-dung
+
+| Việc | Lệnh |
+|---|---|
+| Tạo người dùng | `sudo adduser <tên>` |
+| Thêm vào nhóm sudo | `sudo usermod -aG sudo <tên>` |
+| Thuộc những nhóm nào | `id <tên>` |
+| Mình được chạy gì bằng sudo | `sudo -l` |
+
+!> `usermod -G` thiếu chữ `-a` sẽ **xoá người dùng khỏi mọi nhóm khác**, chỉ giữ lại nhóm vừa ghi.
+
+### Phần mềm :id=phan-mem
+
+| Việc | Ubuntu / Debian | RHEL / Rocky |
+|---|---|---|
+| Cập nhật danh sách · nâng cấp | `sudo apt update && sudo apt upgrade` | `sudo dnf upgrade` |
+| Cài · gỡ | `sudo apt install <gói>` · `sudo apt remove <gói>` | `sudo dnf install <gói>` · `sudo dnf remove <gói>` |
+| Lệnh này thuộc gói nào | `dpkg -S $(command -v <lệnh>)` | `rpm -qf $(command -v <lệnh>)` |
+
+## Tự kiểm tra :id=tu-kiem-tra
+
+<details>
+<summary><code>df -h</code> còn 40% trống nhưng tạo file vẫn báo <code>No space left on device</code>. Vì sao?</summary>
+
+Hết **inode**. Kiểm tra bằng `df -i`, rồi tìm thư mục có quá nhiều file nhỏ.
+
+</details>
+
+<details>
+<summary>Đã <code>rm</code> file log 20 GB nhưng <code>df -h</code> không giảm. Làm gì?</summary>
+
+Tiến trình vẫn giữ file đã xoá. `sudo lsof +L1` để tìm tiến trình đó, restart nó; lần sau dùng `truncate -s 0` thay vì `rm`.
+
+</details>
+
+<details>
+<summary>Dịch vụ chạy bình thường, nhưng khởi động lại server thì không tự chạy. Thiếu gì?</summary>
+
+Chưa `enable`. Chạy `sudo systemctl enable <dịch-vụ>` (hoặc `enable --now` để vừa bật vừa chạy).
+
+</details>
+
+<details>
+<summary>File có quyền <code>640</code>, chủ là <code>minh</code>, nhóm <code>dev</code>. Ai đọc được, ai sửa được?</summary>
+
+`6` = minh đọc và ghi · `4` = nhóm dev chỉ đọc · `0` = người khác không có quyền gì.
+
+</details>
 
 ## Cần nhớ :id=can-nho
 
-1. Vào server có vấn đề: chạy theo thứ tự `uptime` → `dmesg -T` → `vmstat 1` → `iostat -xz 1` → `free -h`.
-2. Xoá log bằng `rm` không trả lại dung lượng nếu tiến trình còn giữ file: tìm bằng `lsof +L1`, dùng `truncate -s 0`.
-3. Kiểm tra cú pháp cấu hình **trước khi** restart dịch vụ; mở cổng 22 **trước khi** bật firewall.
+1. Vào server có vấn đề: `uptime` → `dmesg -T` → `vmstat 1` → `iostat -xz 1` → `free -h`.
+2. Ổ đầy có hai kiểu: hết dung lượng (`df -h`) và hết inode (`df -i`). File đã xoá vẫn bị giữ: `lsof +L1`.
+3. Kiểm tra cấu hình **trước khi** restart dịch vụ; mở cổng 22 **trước khi** bật firewall.
 
 ## Nguồn tham khảo :id=nguon
 

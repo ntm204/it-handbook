@@ -5,88 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sổ tay IT</title>
   <meta name="description" content="Sổ tay IT thực chiến: hệ thống, server, mạng">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@4.13.1/lib/themes/vue.css">
+  <!-- Mọi thư viện và font nằm trong assets/vendor: trang chạy không cần Internet -->
+  <link rel="stylesheet" href="assets/vendor/fonts.css">
+  <link rel="stylesheet" href="assets/vendor/vue.css">
   <link rel="stylesheet" href="assets/theme.css">
 </head>
 <body>
   <div id="app"></div>
-  <script>
-    window.$docsify = {
-      name: '<span class="logo-prompt">~$</span>sổ tay <b>IT</b>',
-      nameLink: "#/",
-      homepage: "README.md",
-      loadSidebar: true,
-      subMaxLevel: 2,
-      auto2top: true,
-      search: { placeholder: "Tìm lệnh, sự cố…", noData: "Không tìm thấy", depth: 3 },
-      copyCode: { buttonText: "Copy", successText: "Đã copy", errorText: "Lỗi" },
-      pagination: { previousText: "Trước", nextText: "Tiếp", crossChapter: true, crossChapterText: false },
-      plugins: [
-        // Bấm vào lệnh trong bảng để copy — thao tác dùng nhiều nhất
-        function (hook) {
-          hook.doneEach(function () {
-            document.querySelectorAll(".markdown-section td code").forEach(function (el) {
-              el.title = "Bấm để copy";
-              el.onclick = function () {
-                navigator.clipboard.writeText(el.innerText).then(function () { toast("Đã copy: " + el.innerText); });
-              };
-            });
-          });
-        },
-      ],
-    };
-
-    function toast(text) {
-      var t = document.getElementById("toast");
-      if (!t) { t = document.createElement("div"); t.id = "toast"; document.body.appendChild(t); }
-      t.textContent = text;
-      t.classList.add("show");
-      clearTimeout(t._h);
-      t._h = setTimeout(function () { t.classList.remove("show"); }, 1600);
-    }
-
-    // Gõ "/" ở bất kỳ đâu để tìm
-    document.addEventListener("keydown", function (e) {
-      var tag = (e.target.tagName || "").toLowerCase();
-      if (e.key === "/" && tag !== "input" && tag !== "textarea") {
-        var input = document.querySelector(".search input");
-        if (input) { e.preventDefault(); input.focus(); input.select(); }
-      }
-    });
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
-  <script>
-    // Sơ đồ dùng cùng bảng màu với trang, theo chế độ sáng/tối của máy
-    const dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    mermaid.initialize({
-      startOnLoad: false,
-      theme: "base",
-      fontFamily: "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif",   // font có sẵn: đo chữ chính xác, không bị cắt
-      flowchart: { useMaxWidth: true, nodeSpacing: 30, rankSpacing: 36 },
-      sequence: { useMaxWidth: true, mirrorActors: false, width: 118, actorMargin: 28, actorFontSize: 14, messageFontSize: 13, noteFontSize: 13 },
-      themeVariables: Object.assign({ fontSize: "14px" }, dark ? {
-        background: "#11161d", primaryColor: "#171d26", primaryBorderColor: "#3b4656",
-        primaryTextColor: "#e6edf3", lineColor: "#6b7685", secondaryColor: "#1b2230",
-        tertiaryColor: "#11161d", noteBkgColor: "#1b2230", noteTextColor: "#e6edf3",
-        actorBkg: "#171d26", actorBorder: "#3b4656", actorTextColor: "#e6edf3", signalColor: "#949ca6", signalTextColor: "#e6edf3",
-      } : {
-        background: "#f7f8fa", primaryColor: "#ffffff", primaryBorderColor: "#c9ced6",
-        primaryTextColor: "#1f2328", lineColor: "#8a939e", secondaryColor: "#eef3ff",
-        tertiaryColor: "#f7f8fa", noteBkgColor: "#eef3ff", noteTextColor: "#1f2328",
-        actorBkg: "#ffffff", actorBorder: "#c9ced6", actorTextColor: "#1f2328", signalColor: "#5d6670", signalTextColor: "#1f2328",
-      }),
-    });
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/docsify@4.13.1/lib/docsify.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/docsify@4.13.1/lib/plugins/search.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/docsify-copy-code@3.0.2/dist/docsify-copy-code.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/docsify-pagination@2.10.1/dist/docsify-pagination.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/docsify-mermaid@2.0.1/dist/docsify-mermaid.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-batch.min.js"></script>
+  <script src="assets/vendor/mermaid.min.js"></script>
+  <script src="assets/app.js"></script>
+  <script src="assets/vendor/docsify.min.js"></script>
+  <script src="assets/vendor/search.min.js"></script>
+  <script src="assets/vendor/docsify-copy-code.min.js"></script>
+  <script src="assets/vendor/docsify-pagination.min.js"></script>
+  <script src="assets/vendor/docsify-mermaid.js"></script>
+  <script src="assets/vendor/prism-bash.min.js"></script>
+  <script src="assets/vendor/prism-powershell.min.js"></script>
+  <script src="assets/vendor/prism-batch.min.js"></script>
 </body>
 </html>

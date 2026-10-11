@@ -88,6 +88,29 @@ flowchart TD
 
 ?> Thứ tự hợp lý: **CCNA** (giá trị nhất khi xin việc mạng ở Việt Nam) → **RHCSA** (chứng minh làm được thật) → chứng chỉ của hãng thiết bị công ty đang dùng.
 
+## Tự kiểm tra :id=tu-kiem-tra
+
+<details>
+<summary>Phòng IT muốn đọc dữ liệu sản lượng từ máy chủ MES để làm báo cáo trên ERP. Kết nối nên đi thế nào?</summary>
+
+Qua **DMZ công nghiệp (cấp 3.5)**: ERP (cấp 4) không kết nối thẳng xuống MES (cấp 3). Dữ liệu được đẩy hoặc sao chép qua máy trung gian trong DMZ, có firewall kiểm soát cả hai phía.
+
+</details>
+
+<details>
+<summary>Bạn muốn quét mạng xưởng bằng <code>nmap</code> để lập danh sách thiết bị. Cần làm gì trước?</summary>
+
+Xin phép kỹ sư phụ trách OT và chọn thời điểm dây chuyền dừng. Một số PLC, thiết bị cũ có thể treo hoặc khởi động lại khi bị quét.
+
+</details>
+
+<details>
+<summary>Mới vào nghề, nên thi chứng chỉ nào trước?</summary>
+
+CCNA (hoặc Network+ nếu muốn trung lập): nền tảng mạng là gốc của mọi mảng khác, và CCNA được nhà tuyển dụng ở Việt Nam đánh giá cao nhất.
+
+</details>
+
 ## Cần nhớ :id=can-nho
 
 1. Ở nhà máy, **dây chuyền không được dừng** là ưu tiên số một: mọi thay đổi trên mạng OT phải được kỹ sư phụ trách đồng ý.

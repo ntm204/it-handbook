@@ -182,7 +182,7 @@ body.close .sidebar-toggle { background: transparent; }
   line-height: 1.25;
   margin: 0 0 10px;
 }
-.markdown-section h1 + p { font-size: 16.5px; color: var(--muted); margin-bottom: 28px; }
+.markdown-section h1 + p, .markdown-section .page-meta + p { font-size: 16.5px; color: var(--muted); margin-bottom: 24px; }
 .markdown-section h2 {
   font-size: 22px;
   font-weight: 700;
@@ -460,4 +460,182 @@ kbd {
   .markdown-section td code, .markdown-section p code, .markdown-section li code { white-space: normal; word-break: break-word; }
   .markdown-section table { display: block; overflow-x: auto; }   /* chỉ bảng cuộn ngang, trang không tràn */
   .markdown-section pre > code { font-size: 12.5px; }
+}
+
+/* ════════════════ Bố cục 3 cột, đọc & học ════════════════ */
+
+/* Đoạn văn giới hạn ~72 ký tự mỗi dòng; bảng, code, sơ đồ được rộng hơn */
+.markdown-section > p, .markdown-section > ul, .markdown-section > ol,
+.markdown-section > blockquote, .markdown-section > details { max-width: 72ch; }
+
+/* Tiêu đề cấp 3 là đơn vị nội dung chính trong từng phần */
+.markdown-section h3 { font-size: 19px; font-weight: 700; letter-spacing: -.01em; margin: 40px 0 12px; }
+
+/* Phần Hiểu · Làm · Tra */
+.markdown-section h2.part {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  margin: 72px 0 4px;
+  padding-top: 18px;
+  border-top: 2px solid var(--accent);
+}
+.markdown-section h2.part .anchor span { color: var(--accent); }
+.markdown-section h2.part::after {
+  display: block;
+  margin-top: 6px;
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--muted);
+}
+.markdown-section h2.part-hieu::after { content: "Khái niệm và cơ chế: vì sao mọi thứ chạy như vậy."; }
+.markdown-section h2.part-lam::after  { content: "Quy trình từng bước cho việc cụ thể."; }
+.markdown-section h2.part-tra::after  { content: "Bảng lệnh để tra nhanh. Bấm vào lệnh để copy."; }
+.markdown-section h2.part + h3 { margin-top: 24px; }
+
+/* Thông tin trang: thời gian đọc, cập nhật, in */
+.page-meta {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  font-size: 13px; color: var(--muted); margin: -2px 0 18px;
+}
+.page-tools { display: flex; gap: 6px; }
+.page-tools button, .progress-bar button {
+  font: 500 12.5px var(--font);
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.page-tools button:hover, .progress-bar button:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Mục lục bên phải */
+#toc { display: none; }
+@media (min-width: 1280px) {
+  .content { padding-right: 250px; }
+  #toc {
+    display: block;
+    position: fixed;
+    top: 88px;
+    right: 28px;
+    width: 210px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    font-size: 13px;
+    border-left: 1px solid var(--border);
+  }
+  #toc .toc-title { margin: 0 0 8px 14px; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  #toc a { display: block; padding: 4px 0 4px 14px; margin-left: -1px; color: var(--muted); border-left: 2px solid transparent; line-height: 1.4; text-decoration: none; }
+  #toc a:hover { color: var(--text); }
+  #toc a.toc-h3 { padding-left: 24px; font-size: 12.5px; }
+  #toc a.toc-part { margin-top: 10px; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+  #toc a.active { color: var(--accent); border-left-color: var(--accent); }
+}
+
+/* Tự kiểm tra: bấm để xem đáp án */
+.markdown-section details {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin: 0 0 10px;
+  background: var(--bg);
+}
+.markdown-section details summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 12px 16px 12px 46px;
+  position: relative;
+  font-weight: 500;
+}
+.markdown-section details summary::-webkit-details-marker { display: none; }
+.markdown-section details summary::before {
+  content: "?";
+  position: absolute; left: 14px; top: 12px;
+  width: 22px; height: 22px; border-radius: 50%;
+  display: grid; place-items: center;
+  font: 700 12px var(--mono);
+  color: var(--accent); border: 1px solid var(--accent);
+}
+.markdown-section details[open] summary { border-bottom: 1px solid var(--border); }
+.markdown-section details[open] summary::before { content: "✓"; background: var(--accent); color: var(--bg); }
+.markdown-section details > :not(summary) { padding: 0 16px 0 46px; }
+.markdown-section details > :last-child { padding-bottom: 12px; }
+
+/* Thuật ngữ */
+abbr.term { text-decoration: underline dotted var(--muted); text-underline-offset: 3px; cursor: help; }
+abbr.term:focus { outline: none; text-decoration-color: var(--accent); }
+#tip {
+  position: fixed; z-index: 60; max-width: 320px;
+  background: var(--text); color: var(--bg);
+  font: 400 12.5px/1.5 var(--font);
+  padding: 8px 11px; border-radius: 8px;
+  opacity: 0; pointer-events: none; transition: opacity .12s;
+}
+#tip.show { opacity: 1; }
+
+/* Tiến độ học */
+.progress-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  max-width: 860px; margin: 0 48px 8px; padding: 14px 16px;
+  border: 1px dashed var(--border); border-radius: var(--radius);
+  font-size: 14px; color: var(--muted);
+}
+.markdown-section .progress-bar { margin: 40px 0 0; }
+.sidebar-nav a.learned::after { content: "✓"; float: right; color: #16a34a; font-size: 12px; margin-left: 6px; }
+.sidebar-nav a.due::after { content: "●"; color: var(--warn); }
+#review-due { margin: 8px 0 0; }
+#review-due ul { margin-top: 4px; }
+
+/* Thanh bên: nhóm Lab đánh số L1, L2… */
+.sidebar-nav > ul:nth-of-type(2) { counter-reset: lab; }
+.sidebar-nav > ul:nth-of-type(2) > li { counter-increment: lab; }
+.sidebar-nav > ul:nth-of-type(2) > li > a::before {
+  content: "L" counter(lab);
+  font-family: var(--mono); font-size: 12px; color: var(--muted); opacity: .7;
+  display: inline-block; width: 18px; margin-right: 10px;
+}
+.sidebar-nav > ul:nth-of-type(2) > li.active > a::before { color: var(--accent); opacity: 1; }
+.sidebar-nav > ul:nth-of-type(3) li a { font-size: 13px; }
+
+/* Bàn phím: luôn thấy rõ đang ở đâu */
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+/* ════════════════ In (Cmd+P, hoặc nút In) ════════════════ */
+@media print {
+  :root {
+    --bg: #fff; --surface: #f6f6f6; --surface-2: #eee; --border: #ccc; --text: #000; --muted: #444;
+    --accent: #000; --code-bg: #f1f1f1; --code-text: #000; --pre-bg: #f6f6f6;
+  }
+  @page { size: A4; margin: 14mm 12mm; }
+  html, body { background: #fff; }
+  body { font-size: 11px; }
+  .sidebar, .sidebar-toggle, #toc, .docsify-pagination-container, .page-tools, .progress-bar,
+  .docsify-copy-code-button, .search, #toast, #tip { display: none !important; }
+  .content { position: static !important; left: 0 !important; padding: 0 !important; }
+  .markdown-section { max-width: none; padding: 0; }
+  .markdown-section > p, .markdown-section > ul, .markdown-section > ol { max-width: none; }
+  .markdown-section h1 { font-size: 20px; }
+  .markdown-section h2 { margin-top: 18px; padding-top: 8px; }
+  .markdown-section h2.part { margin-top: 20px; }
+  .markdown-section h3 { margin-top: 14px; font-size: 14px; }
+  /* Khổ A4 hẹp hơn 768px: chặn giao diện điện thoại khi in */
+  .markdown-section table { display: table !important; width: 100% !important; box-shadow: none; font-size: 10px; }
+  .markdown-section p, .markdown-section li, .markdown-section blockquote,
+  .markdown-section p.tip, .markdown-section p.warn, .markdown-section details summary { font-size: 11px; }
+  .markdown-section h1 + p, .markdown-section .page-meta + p { font-size: 12px; }
+  .markdown-section code { font-size: .9em; white-space: normal !important; }
+  .markdown-section h2.part::after { font-size: 11px; }
+  .markdown-section th, .markdown-section td { padding: 4px 8px; }
+  .markdown-section pre > code { font-size: 10px; padding: 8px 10px; }
+  h2, h3 { break-after: avoid; }
+  table, pre, details, .mermaid { break-inside: avoid; }
+  details > :not(summary) { display: block !important; }   /* in kèm đáp án */
+  a { color: inherit !important; }
+  abbr.term { text-decoration: none; }
+  /* Chỉ in phần Tra */
+  body.print-tra .markdown-section > *:not(h1):not([data-part="tra"]) { display: none !important; }
+  body.print-tra .markdown-section h2.part-tra { margin-top: 8px; border-top: 0; }
 }

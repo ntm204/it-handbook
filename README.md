@@ -28,6 +28,16 @@ Bấm triệu chứng để xem cách xử lý, bấm lệnh để copy. Tất c
 <a href="#/xu-ly-su-co"><span class="n">06</span><span class="t">Xử lý sự cố</span><span class="d">Quy trình 7 bước chuẩn CompTIA và 10 sự cố hay gặp nhất.</span></a>
 </div>
 
+## Thực hành
+
+6 bài lab có làm mẫu và đáp án: [Lab thực hành](lab/README.md). Gặp thuật ngữ lạ: [Thuật ngữ](thuat-ngu.md).
+
+## Tiến độ của bạn
+
+<div id="review-due"></div>
+
+Ôn lại theo lịch 1 ngày, 7 ngày, 30 ngày sau khi học giúp nhớ lâu hơn nhiều so với đọc lại liền một lúc. Trang tự nhắc khi đến hạn.
+
 ## Dùng trang này nhanh hơn
 
 | | |
@@ -35,7 +45,9 @@ Bấm triệu chứng để xem cách xử lý, bấm lệnh để copy. Tất c
 | <kbd>/</kbd> | Tìm ở bất kỳ đâu: tên lệnh, triệu chứng, thông báo lỗi |
 | Bấm vào lệnh trong bảng | Copy ngay |
 | `<ip>`, `<tên>` | Thay bằng giá trị của bạn |
+| Chữ có gạch chấm | Rê chuột để xem giải thích thuật ngữ |
 | Hộp **i** · hộp **!** | Nên biết · làm sai có thể mất dữ liệu hoặc mất kết nối |
+| **In trang** · **In bảng tra** | Bản in A4, mang theo khi đi xử lý sự cố |
 
 ## Thực hành
 
