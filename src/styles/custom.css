@@ -202,3 +202,6 @@ abbr.term { text-decoration: underline dotted var(--sl-color-gray-3); text-under
   abbr.term { text-decoration: none; }
   body.print-tra .sl-markdown-content > *:not([data-part="tra"]) { display: none !important; }
 }
+
+/* Sơ đồ: ẩn mã thô trong lúc thư viện vẽ đang tải (mạng chậm) */
+pre.mermaid:not([data-processed]) { color: transparent; }
