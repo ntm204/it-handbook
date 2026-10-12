@@ -8,8 +8,8 @@ declare global { interface Window { __lenis?: Lenis } }
 if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
   const lenis = new Lenis({
     autoRaf: true,
-    lerp: 0.12,                 // độ "trôi": nhỏ hơn = mượt, chậm hơn
-    wheelMultiplier: 1,
+    lerp: 0.07,                 // độ "trôi": nhỏ hơn = trôi lâu, mượt hơn (0.1 là mặc định)
+    wheelMultiplier: 0.9,       // mỗi nấc con lăn đi ngắn hơn một chút, cảm giác êm
     smoothWheel: true,
     syncTouch: false,           // cảm ứng: để hệ điều hành xử lý (tự nhiên nhất)
     allowNestedScroll: true,    // thanh bên, mục lục, khối code, bảng vẫn cuộn riêng
