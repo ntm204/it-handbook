@@ -170,10 +170,9 @@
     }
   });
 
-  // ── Tiến độ đọc (thanh mảnh dưới đầu trang) và nút lên đầu trang ──
+  // ── Nút lên đầu trang (chỉ hiện khi đã cuộn xuống) ──
   function scrollUi() {
     if (!content || PAGE === "") return;
-    var bar = el("read-progress");
     var top = document.createElement("button");
     top.type = "button"; top.id = "to-top"; top.setAttribute("aria-label", "Lên đầu trang"); top.setAttribute("data-tip", "Lên đầu trang");
     top.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -181,9 +180,7 @@
     document.body.appendChild(top);
     var ticking = false;
     function update() {
-      var max = document.documentElement.scrollHeight - window.innerHeight;
       var y = window.scrollY;
-      bar.style.transform = "scaleX(" + (max > 0 ? Math.min(1, y / max) : 0) + ")";
       top.classList.toggle("show", y > window.innerHeight * 1.2);
       ticking = false;
     }
