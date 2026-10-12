@@ -26,9 +26,10 @@ Sổ tay mạnh nhất ở **kinh nghiệm thật**: những sự cố bạn đ�
 | **Chia sẻ một sự cố đã gặp** | [Điền mẫu chia sẻ sự cố](../../issues/new?template=chia-se-su-co.yml) | Không |
 | Báo lỗi sai, lệnh sai | [Báo lỗi nội dung](../../issues/new?template=bao-loi.yml) | Không |
 | Sửa một chỗ nhỏ | Bấm **Sửa trang này** ở cuối mỗi trang trên web | Không, sửa ngay trên GitHub |
+| Đề xuất chủ đề nên có | [Gửi đề xuất](../../issues/new?template=de-xuat.md) | Không |
 | Viết trang mới, bài lab | Đọc [CONTRIBUTING.md](CONTRIBUTING.md) | Có |
 
-Mọi người đóng góp đều được ghi tên. Hãy đọc [Quy tắc ứng xử](CODE_OF_CONDUCT.md) trước khi tham gia.
+Mọi người đóng góp đều được ghi tên trong [CONTRIBUTORS.md](CONTRIBUTORS.md). Hãy đọc [Quy tắc ứng xử](CODE_OF_CONDUCT.md) trước khi tham gia.
 
 ## Chạy trên máy
 

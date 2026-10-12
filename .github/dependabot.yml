@@ -1,0 +1,16 @@
+# Tự đề xuất cập nhật thư viện và GitHub Actions (gom lại mỗi tháng để không nhiều PR lẻ)
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule: { interval: monthly }
+    groups:
+      astro: { patterns: ["astro", "@astrojs/*", "astro-*"] }
+      all-other: { patterns: ["*"] }
+    labels: [dependencies]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule: { interval: monthly }
+    groups:
+      actions: { patterns: ["*"] }
+    labels: [dependencies]

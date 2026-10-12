@@ -13,10 +13,10 @@ Cảm ơn bạn đã muốn đóng góp. Sổ tay này có giá trị nhờ **ki
 ## Viết trang mới hoặc bài lab
 
 1. Fork repo, tạo nhánh mới.
-2. Chạy trên máy: `npm install` rồi `npm run dev`, mở `http://localhost:4321/it-handbook/`.
+2. Cần Node 22.12 trở lên (xem `.nvmrc`). Chạy trên máy: `npm install` rồi `npm run dev`, mở `http://localhost:4321/it-handbook/`.
 3. Chép [trang mẫu](src/content/docs/_mau-trang.md) sang tên mới trong `src/content/docs/` (bài lab đặt ở `src/content/docs/lab/`).
 4. Thêm trang vào thanh bên trong `astro.config.mjs`.
-5. Kiểm tra `npm run build` không lỗi, rồi mở Pull Request.
+5. Kiểm tra `npm run build && npm run check` (build và kiểm liên kết) không lỗi, rồi mở Pull Request. GitHub sẽ tự chạy lại bước này cho mọi Pull Request.
 
 ## Tiêu chuẩn nội dung
 
@@ -56,4 +56,4 @@ Viết commit message bằng tiếng Việt, ngắn, nói rõ đã làm gì. Ví
 
 ## Ghi công
 
-Mọi người có đóng góp được đưa vào danh sách người đóng góp của dự án. Nếu bạn chia sẻ sự cố qua mẫu, hãy ghi tên hiển thị mong muốn trong mẫu.
+Mọi người có đóng góp được ghi tên trong [CONTRIBUTORS.md](CONTRIBUTORS.md). Nếu bạn chia sẻ sự cố qua mẫu, hãy ghi tên hiển thị mong muốn trong mẫu.

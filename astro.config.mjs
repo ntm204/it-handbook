@@ -58,7 +58,15 @@ export default defineConfig({
         "@fontsource/jetbrains-mono/500.css",
         "./src/styles/custom.css",
       ],
-      head: [{ tag: "script", attrs: { src: `${BASE}/handbook.js`, defer: true } }],
+      head: [
+        { tag: "script", attrs: { src: `${BASE}/handbook.js`, defer: true } },
+        // Ảnh xem trước khi chia sẻ link (Facebook, Zalo, LinkedIn). Nguồn thiết kế: scripts/og/og.html
+        { tag: "meta", attrs: { property: "og:image", content: `https://ntm204.github.io${BASE}/og.png` } },
+        { tag: "meta", attrs: { property: "og:image:width", content: "1200" } },
+        { tag: "meta", attrs: { property: "og:image:height", content: "630" } },
+        { tag: "meta", attrs: { property: "og:image:alt", content: "Sổ tay IT — sổ tay cho người làm hệ thống và mạng" } },
+        { tag: "meta", attrs: { name: "twitter:image", content: `https://ntm204.github.io${BASE}/og.png` } },
+      ],
       sidebar: [
         { label: "Lộ trình nghề", link: "/nghe-nghiep/" },
         { label: "Mạng", link: "/mang/" },
