@@ -139,3 +139,12 @@ Mở nhanh HTML: `open index.html` · có tự tải lại: `npx vite --open`.
 | Tìm lệnh cũ | `Ctrl+R` |
 | Chạy lại lệnh trước với sudo | `sudo !!` |
 | Ví dụ cách dùng một lệnh | `tldr <lệnh>` · đầy đủ: `man <lệnh>` |
+
+## 12. Sổ tay & tmux
+
+| Việc | Lệnh |
+|---|---|
+| Mở sổ tay trên máy | `docs` |
+| Mở cho điện thoại cùng Wi-Fi · tắt | `docs lan` · `docs stop` |
+| Mở phiên tmux · quay lại | `tmux new -s <tên>` · `tmux a -t <tên>` |
+| Thoát tmux, phiên vẫn chạy | <kbd>Ctrl</kbd>+<kbd>B</kbd> rồi <kbd>d</kbd> |

@@ -139,3 +139,12 @@ Quick HTML: `open index.html` · with live reload: `npx vite --open`.
 | Search history | `Ctrl+R` |
 | Re-run last command with sudo | `sudo !!` |
 | Examples for a command | `tldr <command>` · full manual: `man <command>` |
+
+## 12. Handbook & tmux
+
+| Task | Command |
+|---|---|
+| Open the handbook | `docs` |
+| Share to a phone on the same Wi-Fi · stop | `docs lan` · `docs stop` |
+| New tmux session · reattach | `tmux new -s <name>` · `tmux a -t <name>` |
+| Detach, session keeps running | <kbd>Ctrl</kbd>+<kbd>B</kbd> then <kbd>d</kbd> |

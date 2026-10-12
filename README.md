@@ -32,6 +32,13 @@ Bấm triệu chứng để xem cách xử lý, bấm lệnh để copy. Tất c
 
 6 bài lab có làm mẫu và đáp án: [Lab thực hành](lab/README.md). Gặp thuật ngữ lạ: [Thuật ngữ](thuat-ngu.md).
 
+| Mảng | Ở đâu |
+|---|---|
+| Linux, mạng | Máy `lab`: `orb -m lab` |
+| Switch Cisco | [Cisco Packet Tracer](https://www.netacad.com/cisco-packet-tracer), miễn phí |
+| PowerShell | `brew install powershell` → `pwsh` (lệnh Active Directory cần Windows) |
+| Bắt gói tin | Wireshark |
+
 ## Tiến độ của bạn
 
 <div id="review-due"></div>
@@ -48,12 +55,3 @@ Bấm triệu chứng để xem cách xử lý, bấm lệnh để copy. Tất c
 | Chữ có gạch chấm | Rê chuột để xem giải thích thuật ngữ |
 | Hộp **i** · hộp **!** | Nên biết · làm sai có thể mất dữ liệu hoặc mất kết nối |
 | **In trang** · **In bảng tra** | Bản in A4, mang theo khi đi xử lý sự cố |
-
-## Thực hành
-
-| Mảng | Ở đâu |
-|---|---|
-| Linux, mạng | Máy `lab`: `orb -m lab` |
-| Switch Cisco | [Cisco Packet Tracer](https://www.netacad.com/cisco-packet-tracer), miễn phí |
-| PowerShell | `brew install powershell` → `pwsh` (lệnh Active Directory cần Windows) |
-| Bắt gói tin | Wireshark |
