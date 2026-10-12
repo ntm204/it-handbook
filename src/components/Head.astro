@@ -1,0 +1,10 @@
+---
+// Phần <head> mặc định của Starlight + cuộn mượt cho mọi trang
+import Default from "@astrojs/starlight/components/Head.astro";
+---
+
+<Default><slot /></Default>
+
+<script>
+  import "../scripts/smooth-scroll.ts";
+</script>

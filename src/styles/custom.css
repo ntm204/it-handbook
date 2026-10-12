@@ -330,8 +330,8 @@ pre.mermaid:not([data-processed]) { color: transparent; }
 ::-webkit-scrollbar-corner { background: transparent; }
 
 /* Cuộn mượt khi bấm mục lục; chừa chỗ cho thanh đầu trang */
-@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
-.sl-markdown-content :is(h2, h3, h4, [id]) { scroll-margin-top: calc(var(--sl-nav-height) + 1.5rem); }
+/* Cuộn mượt do Lenis đảm nhận (src/scripts/smooth-scroll.ts); CSS scroll-behavior phải để mặc định để không xung đột */
+/* Khoảng chừa thanh đầu trang khi nhảy tới mục: Starlight đã đặt sẵn scroll-padding-top, không thêm nữa */
 
 /* Phím */
 :where(.sl-markdown-content, .hb-tips) kbd {

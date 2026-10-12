@@ -31,6 +31,7 @@ export default defineConfig({
       components: {
         SiteTitle: "./src/components/SiteTitle.astro",
         ThemeSelect: "./src/components/ThemeSelect.astro",   // nút 3 biểu tượng thay ô chọn mặc định
+        Head: "./src/components/Head.astro",                 // thêm cuộn mượt (Lenis)
       },
       social: [{ icon: "github", label: "GitHub", href: REPO }],
       editLink: { baseUrl: `${REPO}/edit/main/` },
