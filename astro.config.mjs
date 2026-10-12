@@ -28,7 +28,10 @@ export default defineConfig({
       description: "Sổ tay IT thực chiến bằng tiếng Việt: hệ thống, server, mạng. Mã nguồn mở, ai cũng có thể đóng góp.",
       defaultLocale: "root",
       locales: { root: { label: "Tiếng Việt", lang: "vi" } },
-      components: { SiteTitle: "./src/components/SiteTitle.astro" },
+      components: {
+        SiteTitle: "./src/components/SiteTitle.astro",
+        ThemeSelect: "./src/components/ThemeSelect.astro",   // nút 3 biểu tượng thay ô chọn mặc định
+      },
       social: [{ icon: "github", label: "GitHub", href: REPO }],
       editLink: { baseUrl: `${REPO}/edit/main/` },
       lastUpdated: true,

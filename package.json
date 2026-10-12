@@ -5,7 +5,7 @@
   "description": "Sổ tay IT thực chiến bằng tiếng Việt: hệ thống, server, mạng.",
   "scripts": {
     "dev": "node scripts/glossary.mjs && astro dev",
-    "build": "node scripts/glossary.mjs && astro build",
+    "build": "node scripts/glossary.mjs && astro build --force",
     "preview": "astro preview"
   },
   "dependencies": {
