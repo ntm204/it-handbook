@@ -1,0 +1,204 @@
+/* Sổ tay IT — giao diện trên nền Starlight.
+   Starlight đặt chế độ tối ở :root, chế độ sáng ở [data-theme="light"]. */
+
+/* ── Màu & chữ ── */
+:root {
+  --sl-font: "Be Vietnam Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --sl-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --sl-text-base: 0.9375rem;
+  --sl-content-width: 50rem;
+
+  --sl-color-accent-low: #15233d;
+  --sl-color-accent: #6ea8fe;
+  --sl-color-accent-high: #a9c9ff;
+  --sl-color-white: #e6edf3;
+  --sl-color-gray-1: #d1d7de;
+  --sl-color-gray-2: #b1b9c3;
+  --sl-color-gray-3: #949ca6;
+  --sl-color-gray-4: #5d6670;
+  --sl-color-gray-5: #262d38;
+  --sl-color-gray-6: #11161d;
+  --sl-color-black: #0d1117;
+
+  --hb-surface: #11161d;
+  --hb-border: #262d38;
+  --hb-code-text: #a5c8ff;
+  --hb-ok: #4ade80;
+  --hb-warn: #f0b35a;
+}
+:root[data-theme="light"] {
+  --sl-color-accent-low: #e3ecff;
+  --sl-color-accent: #2563eb;
+  --sl-color-accent-high: #1e3a8a;
+  --sl-color-white: #1f2328;
+  --sl-color-gray-1: #2c333b;
+  --sl-color-gray-2: #424a53;
+  --sl-color-gray-3: #5d6670;
+  --sl-color-gray-4: #8a939e;
+  --sl-color-gray-5: #d0d5dc;
+  --sl-color-gray-6: #eef0f3;
+  --sl-color-gray-7: #f7f8fa;
+  --sl-color-black: #ffffff;
+
+  --hb-surface: #f7f8fa;
+  --hb-border: #e3e6ea;
+  --hb-code-text: #0b3a8a;
+  --hb-ok: #16a34a;
+  --hb-warn: #b45309;
+}
+
+/* ── Tên trang: dấu nhắc lệnh ── */
+.site-title { display: flex; align-items: center; gap: .5rem; font-size: 1.05rem; color: var(--sl-color-white); text-decoration: none; font-weight: 500; white-space: nowrap; }
+.site-title b { font-weight: 700; }
+.logo-prompt { font-family: var(--sl-font-mono); color: var(--sl-color-accent); font-weight: 500; }
+
+/* ── Thanh bên: 6 trang lộ trình đánh số 01–06 ── */
+.sidebar-content ul.top-level { counter-reset: step; }
+.sidebar-content ul.top-level > li:nth-child(-n+6) { counter-increment: step; }
+.sidebar-content ul.top-level > li:nth-child(-n+6) > a::before {
+  content: counter(step, decimal-leading-zero);
+  font-family: var(--sl-font-mono);
+  font-size: .75rem;
+  color: var(--sl-color-gray-3);
+  margin-right: .6rem;
+}
+.sidebar-content ul.top-level > li:nth-child(-n+6) > a[aria-current="page"]::before { color: inherit; }
+.sidebar-content ul.top-level > li:nth-child(7) { margin-top: .75rem; }
+.sidebar-content a.learned::after { content: "✓"; margin-left: auto; padding-left: .5rem; color: var(--hb-ok); font-size: .75rem; }
+.sidebar-content a.due::after { content: "●"; margin-left: auto; padding-left: .5rem; color: var(--hb-warn); font-size: .7rem; }
+
+/* Mục đang xem: nền nhạt, chữ màu nhấn — không chói */
+.sidebar-content a[aria-current="page"],
+.sidebar-content a[aria-current="page"]:hover,
+.sidebar-content a[aria-current="page"]:focus {
+  background: var(--sl-color-accent-low);
+  color: var(--sl-color-accent);
+  font-weight: 600;
+}
+
+/* ── Nội dung ── */
+.sl-markdown-content > p, .sl-markdown-content > ul, .sl-markdown-content > ol,
+.sl-markdown-content > blockquote, .sl-markdown-content > details { max-width: 72ch; }
+.sl-markdown-content a,
+.sl-markdown-content a:not(:where(.not-content *)) { color: var(--sl-color-accent); text-decoration: none; font-weight: 500; }
+.sl-markdown-content .path a { color: var(--sl-color-white); }
+.sl-markdown-content a:hover,
+.sl-markdown-content a:not(:where(.not-content *)):hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* Mục tiêu trang: một dòng có nhãn */
+.sl-markdown-content blockquote {
+  border-inline-start: 2px solid var(--sl-color-accent);
+  background: none;
+  padding: .1rem 0 .1rem 1rem;
+  font-style: normal;
+  color: var(--sl-color-white);
+}
+.sl-markdown-content blockquote::before {
+  content: "MỤC TIÊU";
+  display: block;
+  font-size: .7rem; font-weight: 600; letter-spacing: .08em;
+  color: var(--sl-color-accent);
+  margin-bottom: .15rem;
+}
+.sl-markdown-content p.related { font-size: .85rem; color: var(--sl-color-gray-3); margin-top: .4rem; }
+
+/* Dòng thông tin trang: thời gian đọc, nút in */
+.page-meta { display: flex; align-items: center; justify-content: space-between; gap: .75rem; flex-wrap: wrap; font-size: .85rem; color: var(--sl-color-gray-3); margin-top: .5rem; }
+.page-tools { display: flex; gap: .4rem; }
+.page-tools button, .progress-bar button {
+  font: 500 .8rem var(--sl-font); color: var(--sl-color-white);
+  background: transparent; border: 1px solid var(--hb-border); border-radius: .4rem;
+  padding: .3rem .65rem; cursor: pointer;
+}
+.page-tools button:hover, .progress-bar button:hover { border-color: var(--sl-color-accent); color: var(--sl-color-accent); }
+
+/* ── Phần Hiểu · Làm · Tra ── */
+.sl-markdown-content .sl-heading-wrapper.part { margin-top: 4rem; padding-top: 1.1rem; border-top: 2px solid var(--sl-color-accent); }
+.sl-markdown-content h2.part { font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--sl-color-accent); }
+.sl-markdown-content h2.part::after { display: block; margin-top: .4rem; font-size: .95rem; font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--sl-color-gray-3); }
+.sl-markdown-content h2#hieu::after { content: "Khái niệm và cơ chế: vì sao mọi thứ chạy như vậy."; }
+.sl-markdown-content h2#lam::after  { content: "Quy trình từng bước cho việc cụ thể."; }
+.sl-markdown-content h2#tra::after  { content: "Bảng lệnh để tra nhanh. Bấm vào lệnh để copy."; }
+.sl-markdown-content h2 { font-size: 1.55rem; }
+.sl-markdown-content h3 { font-size: 1.2rem; }
+
+/* ── Bảng & code ── */
+.sl-markdown-content table { display: table; width: 100%; font-size: .875rem; }
+.sl-markdown-content th { font-size: .75rem; letter-spacing: .04em; text-transform: uppercase; color: var(--sl-color-gray-3); }
+.sl-markdown-content :not(pre) > code { color: var(--hb-code-text); white-space: nowrap; }
+.sl-markdown-content td code { cursor: copy; transition: box-shadow .12s; }
+.sl-markdown-content td code:hover { box-shadow: 0 0 0 1px var(--sl-color-accent); }
+
+/* ── Cần nhớ: khối chốt cuối trang ── */
+.sl-heading-wrapper:has(#can-nho) + ol { counter-reset: nho; list-style: none; padding: 0; }
+.sl-heading-wrapper:has(#can-nho) + ol > li {
+  counter-increment: nho; position: relative; margin: 0 0 .5rem;
+  padding: .75rem .9rem .75rem 3rem;
+  background: var(--hb-surface); border: 1px solid var(--hb-border); border-radius: .6rem;
+}
+.sl-heading-wrapper:has(#can-nho) + ol > li::before {
+  content: counter(nho); position: absolute; left: .9rem; top: .75rem;
+  width: 1.4rem; height: 1.4rem; border-radius: 50%; display: grid; place-items: center;
+  font: 600 .75rem var(--sl-font-mono); color: var(--sl-color-accent); border: 1px solid var(--sl-color-accent);
+}
+
+/* ── Tự kiểm tra: bấm để xem đáp án ── */
+.sl-markdown-content details { border: 1px solid var(--hb-border); border-radius: .6rem; margin: 0 0 .6rem; }
+.sl-markdown-content details summary { cursor: pointer; padding: .75rem 1rem .75rem 2.9rem; position: relative; font-weight: 500; list-style: none; }
+.sl-markdown-content details summary::-webkit-details-marker { display: none; }
+.sl-markdown-content details summary::before {
+  content: "?"; position: absolute; left: .9rem; top: .75rem;
+  width: 1.4rem; height: 1.4rem; border-radius: 50%; display: grid; place-items: center;
+  font: 700 .75rem var(--sl-font-mono); color: var(--sl-color-accent); border: 1px solid var(--sl-color-accent);
+}
+.sl-markdown-content details[open] summary { border-bottom: 1px solid var(--hb-border); }
+.sl-markdown-content details[open] summary::before { content: "✓"; background: var(--sl-color-accent); color: var(--sl-color-black); }
+.sl-markdown-content details > :not(summary) { margin-inline: 1rem; }
+.sl-markdown-content details > :last-child { margin-bottom: .9rem; }
+
+/* ── Trang chủ: danh sách lộ trình ── */
+.path { margin: .5rem 0; border-top: 1px solid var(--hb-border); }
+.path a { display: grid; grid-template-columns: 2.75rem 1fr; column-gap: .5rem; padding: .9rem .25rem; border-bottom: 1px solid var(--hb-border); color: var(--sl-color-white); text-decoration: none; }
+.path a:hover { background: var(--hb-surface); text-decoration: none; }
+.path .n { font-family: var(--sl-font-mono); font-size: .85rem; color: var(--sl-color-accent); padding-top: .15rem; }
+.path .t { font-size: 1rem; font-weight: 600; }
+.path .d { grid-column: 2; font-size: .875rem; color: var(--sl-color-gray-3); font-weight: 400; }
+
+/* ── Thuật ngữ, thông báo, tiến độ ── */
+abbr.term { text-decoration: underline dotted var(--sl-color-gray-3); text-underline-offset: 3px; cursor: help; }
+#tip, #toast {
+  position: fixed; z-index: 100; background: var(--sl-color-white); color: var(--sl-color-black);
+  font: 400 .8rem/1.5 var(--sl-font); border-radius: .5rem; pointer-events: none; opacity: 0; transition: opacity .12s, transform .15s;
+}
+#tip { max-width: 20rem; padding: .5rem .7rem; }
+#toast { left: 50%; bottom: 1.75rem; transform: translate(-50%, .75rem); padding: .5rem .9rem; font-weight: 500; max-width: 90vw; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#tip.show, #toast.show { opacity: 1; }
+#toast.show { transform: translate(-50%, 0); }
+.progress-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: .75rem; flex-wrap: wrap;
+  margin-top: 2.5rem; padding: .85rem 1rem; border: 1px dashed var(--hb-border); border-radius: .6rem;
+  font-size: .875rem; color: var(--sl-color-gray-3);
+}
+#review-due ul { margin-top: .25rem; }
+
+/* ── In (Cmd+P hoặc nút In) ── */
+@media print {
+  :root, :root[data-theme="light"] {
+    --sl-color-white: #000; --sl-color-black: #fff; --sl-color-gray-3: #444; --sl-color-accent: #000;
+    --hb-border: #ccc; --hb-surface: #f6f6f6; --hb-code-text: #000;
+  }
+  @page { size: A4; margin: 14mm 12mm; }
+  header.header, nav.sidebar, .right-sidebar-container, .mobile-starlight-toc, starlight-toc, .pagination-links,
+  footer, .page-tools, .progress-bar, .sl-anchor-link, #toast, #tip, site-search { display: none !important; }
+  .main-frame { padding: 0 !important; }
+  .content-panel { padding: 0 !important; border: 0 !important; }
+  .sl-container { max-width: none !important; }
+  body { font-size: 11px; background: #fff; }
+  .sl-markdown-content table { display: table !important; width: 100% !important; font-size: 10px; }
+  .sl-markdown-content :not(pre) > code { white-space: normal; }
+  h2, h3 { break-after: avoid; }
+  table, pre, details, .mermaid { break-inside: avoid; }
+  details > :not(summary) { display: block !important; }
+  abbr.term { text-decoration: none; }
+  body.print-tra .sl-markdown-content > *:not([data-part="tra"]) { display: none !important; }
+}

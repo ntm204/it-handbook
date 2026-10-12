@@ -1,57 +1,51 @@
 # Sổ tay IT
 
-Hệ thống, server, mạng: lệnh đúng, quy trình chuẩn, nguồn chính thống. Đọc để làm được việc, không để biết cho vui.
+**Sổ tay thực chiến bằng tiếng Việt cho người làm hệ thống, server và mạng**, đặc biệt là IT ở nhà máy, khu công nghiệp.
 
-## Đang gặp sự cố
+📖 Đọc tại **https://ntm204.github.io/it-handbook/**
 
-| Triệu chứng | Kiểm tra đầu tiên |
+Không lý thuyết suông: mỗi lệnh đều đúng cú pháp, mỗi mẹo đều có nguồn chính thống hoặc đã chạy thử, mỗi bài lab có kết quả mẫu thật.
+
+## Có gì bên trong
+
+| Phần | Nội dung |
 |---|---|
-| [Một máy không vào được mạng](xu-ly-su-co.md?id=su-co-1) | `ipconfig /all` |
-| [Cả khu mất mạng, mạng chậm bất thường](xu-ly-su-co.md?id=su-co-2) | `show interfaces status` |
-| [Tài khoản domain bị khoá liên tục](xu-ly-su-co.md?id=su-co-6) | `Search-ADAccount -LockedOut` |
-| [Không vào được thư mục chia sẻ](xu-ly-su-co.md?id=su-co-4) | `Test-NetConnection <server> -Port 445` |
-| [Máy in không in](xu-ly-su-co.md?id=su-co-5) | `ping <ip-máy-in>` |
-| [Server Linux đầy ổ](xu-ly-su-co.md?id=su-co-7) | `df -h` |
-| [Server chậm](xu-ly-su-co.md?id=su-co-8) | `uptime` |
-| [Camera mất hình](xu-ly-su-co.md?id=su-co-10) | `ping <ip-camera>` |
+| **Xử lý sự cố** | Quy trình 7 bước chuẩn CompTIA và 10 sự cố hay gặp: mất mạng, tài khoản domain bị khoá, server đầy ổ, camera mất hình… |
+| **Mạng** | Từ lúc cắm dây đến lúc mở được web, chia subnet, VLAN, NAT, lệnh tương đương Linux / Windows / macOS / Cisco |
+| **Linux server** | Đọc tình trạng server trong 60 giây, systemd, log, ổ đĩa, SSH, firewall |
+| **Windows & Active Directory** | Đăng nhập domain hoạt động thế nào, tìm máy gây khoá tài khoản, file server, robocopy |
+| **Switch & Firewall** | Cisco IOS, HPE/Aruba, FortiGate: VLAN, lỗi cổng, vì sao gói tin bị chặn |
+| **Lab thực hành** | 6 bài có làm mẫu và đáp án, chạy trên máy Linux ảo hoặc Cisco Packet Tracer |
 
-Bấm triệu chứng để xem cách xử lý, bấm lệnh để copy. Tất cả 10 sự cố: [Xử lý sự cố](xu-ly-su-co.md).
+## Đóng góp
 
-## Học theo thứ tự
+Sổ tay mạnh nhất ở **kinh nghiệm thật**: những sự cố bạn đã gặp và xử lý. Thứ đó không sách nào hay AI nào viết thay được.
 
-<div class="path">
-<a href="#/nghe-nghiep"><span class="n">01</span><span class="t">Lộ trình nghề</span><span class="d">Vị trí nào, học gì trước, chứng chỉ nào đáng thi; mạng nhà máy chia tầng ra sao.</span></a>
-<a href="#/mang"><span class="n">02</span><span class="t">Mạng</span><span class="d">Một máy vào mạng diễn ra thế nào; triệu chứng nào ứng với bước nào; chia subnet.</span></a>
-<a href="#/linux"><span class="n">03</span><span class="t">Linux server</span><span class="d">Đọc tình trạng server trong 60 giây; dịch vụ, log, ổ đĩa, quyền, SSH.</span></a>
-<a href="#/windows"><span class="n">04</span><span class="t">Windows &amp; AD</span><span class="d">Lệnh cmd, PowerShell; tài khoản domain; file server.</span></a>
-<a href="#/thiet-bi-mang"><span class="n">05</span><span class="t">Switch &amp; Firewall</span><span class="d">Cisco, HPE/Aruba, FortiGate: VLAN, lỗi cổng, vì sao gói tin bị chặn.</span></a>
-<a href="#/xu-ly-su-co"><span class="n">06</span><span class="t">Xử lý sự cố</span><span class="d">Quy trình 7 bước chuẩn CompTIA và 10 sự cố hay gặp nhất.</span></a>
-</div>
+| Bạn muốn | Cách làm | Cần biết git? |
+|---|---|---|
+| **Chia sẻ một sự cố đã gặp** | [Điền mẫu chia sẻ sự cố](../../issues/new?template=chia-se-su-co.yml) | Không |
+| Báo lỗi sai, lệnh sai | [Báo lỗi nội dung](../../issues/new?template=bao-loi.yml) | Không |
+| Sửa một chỗ nhỏ | Bấm **Sửa trang này** ở cuối mỗi trang trên web | Không, sửa ngay trên GitHub |
+| Viết trang mới, bài lab | Đọc [CONTRIBUTING.md](CONTRIBUTING.md) | Có |
 
-## Thực hành
+Mọi người đóng góp đều được ghi tên. Hãy đọc [Quy tắc ứng xử](CODE_OF_CONDUCT.md) trước khi tham gia.
 
-6 bài lab có làm mẫu và đáp án: [Lab thực hành](lab/README.md). Gặp thuật ngữ lạ: [Thuật ngữ](thuat-ngu.md).
+## Chạy trên máy
 
-| Mảng | Ở đâu |
-|---|---|
-| Linux, mạng | Máy `lab`: `orb -m lab` |
-| Switch Cisco | [Cisco Packet Tracer](https://www.netacad.com/cisco-packet-tracer), miễn phí |
-| PowerShell | `brew install powershell` → `pwsh` (lệnh Active Directory cần Windows) |
-| Bắt gói tin | Wireshark |
+```sh
+git clone https://github.com/ntm204/it-handbook
+cd it-handbook
+npm install
+npm run dev          # http://localhost:4321/it-handbook/ — sửa file là trang tự cập nhật
+```
 
-## Tiến độ của bạn
+Nội dung nằm trong `src/content/docs/`, mỗi trang là một file Markdown. Trang web dựng bằng [Starlight](https://starlight.astro.build).
 
-<div id="review-due"></div>
+## Giấy phép
 
-Ôn lại theo lịch 1 ngày, 7 ngày, 30 ngày sau khi học giúp nhớ lâu hơn nhiều so với đọc lại liền một lúc. Trang tự nhắc khi đến hạn.
+- **Nội dung** (tài liệu, bài lab): [CC BY-SA 4.0](LICENSE). Được dùng lại, chỉnh sửa, kể cả cho mục đích thương mại, miễn là **ghi nguồn** và chia sẻ lại với cùng giấy phép.
+- **Mã nguồn** (cấu hình, script, giao diện): [MIT](LICENSE-CODE).
 
-## Dùng trang này nhanh hơn
+---
 
-| | |
-|---|---|
-| <kbd>/</kbd> | Tìm ở bất kỳ đâu: tên lệnh, triệu chứng, thông báo lỗi |
-| Bấm vào lệnh trong bảng | Copy ngay |
-| `<ip>`, `<tên>` | Thay bằng giá trị của bạn |
-| Chữ có gạch chấm | Rê chuột để xem giải thích thuật ngữ |
-| Hộp **i** · hộp **!** | Nên biết · làm sai có thể mất dữ liệu hoặc mất kết nối |
-| **In trang** · **In bảng tra** | Bản in A4, mang theo khi đi xử lý sự cố |
+**English:** A practical, Vietnamese-language handbook for systems, server and network administration, with a focus on IT in Vietnamese factories and industrial parks. Content is licensed CC BY-SA 4.0, code MIT. Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).

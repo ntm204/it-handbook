@@ -1,0 +1,22 @@
+name: Báo lỗi nội dung
+description: Lệnh sai, thông tin cũ, liên kết hỏng, lỗi chính tả.
+title: "[Lỗi] "
+labels: ["bao-loi"]
+body:
+  - type: input
+    id: trang
+    attributes:
+      label: Trang nào
+      placeholder: "Dán đường dẫn trang, ví dụ https://ntm204.github.io/it-handbook/mang/"
+    validations:
+      required: true
+  - type: textarea
+    id: sai
+    attributes:
+      label: Chỗ nào sai
+    validations:
+      required: true
+  - type: textarea
+    id: dung
+    attributes:
+      label: Nên sửa thành gì, và nguồn (nếu có)

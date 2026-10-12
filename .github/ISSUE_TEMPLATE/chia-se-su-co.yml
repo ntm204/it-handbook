@@ -1,0 +1,61 @@
+name: Chia sẻ một sự cố đã gặp
+description: Kể lại một sự cố bạn đã xử lý. Không cần biết git — người duy trì sẽ biên tập và đưa vào sổ tay, ghi tên bạn.
+title: "[Sự cố] "
+labels: ["chia-se-su-co"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Cảm ơn bạn! Viết ngắn cũng được, quan trọng là **thật**.
+        ⚠️ Đừng ghi IP thật, tên công ty, mật khẩu, cấu hình thật — thay bằng ví dụ như `192.168.10.x`, `<tên-server>`.
+  - type: input
+    id: tom-tat
+    attributes:
+      label: Tóm tắt một dòng
+      placeholder: "Ví dụ: Cả xưởng mất mạng mỗi sáng thứ Hai lúc 8 giờ"
+    validations:
+      required: true
+  - type: dropdown
+    id: mang
+    attributes:
+      label: Thuộc mảng nào
+      options: [Mạng, Windows / Active Directory, Linux server, Switch / Firewall, Máy in / camera / thiết bị khác, OT / máy móc sản xuất, Khác]
+    validations:
+      required: true
+  - type: textarea
+    id: trieu-chung
+    attributes:
+      label: Triệu chứng
+      description: Người dùng thấy gì, thông báo lỗi gì, ảnh hưởng bao nhiêu máy, bắt đầu khi nào.
+    validations:
+      required: true
+  - type: textarea
+    id: kiem-tra
+    attributes:
+      label: Đã kiểm tra những gì (theo thứ tự)
+      description: Lệnh đã chạy và kết quả. Kể cả những hướng sai cũng có ích.
+      render: text
+  - type: textarea
+    id: nguyen-nhan
+    attributes:
+      label: Nguyên nhân thật sự
+    validations:
+      required: true
+  - type: textarea
+    id: xu-ly
+    attributes:
+      label: Cách xử lý và cách phòng ngừa
+    validations:
+      required: true
+  - type: input
+    id: ten
+    attributes:
+      label: Tên muốn được ghi công (tuỳ chọn)
+      placeholder: "Để trống sẽ dùng tên GitHub của bạn"
+  - type: checkboxes
+    id: dong-y
+    attributes:
+      label: Xác nhận
+      options:
+        - label: Tôi đồng ý nội dung này được đăng theo giấy phép CC BY-SA 4.0, và đã bỏ mọi thông tin nhạy cảm.
+          required: true

@@ -1,0 +1,21 @@
+{
+  "name": "it-handbook",
+  "private": true,
+  "type": "module",
+  "description": "Sổ tay IT thực chiến bằng tiếng Việt: hệ thống, server, mạng.",
+  "scripts": {
+    "dev": "node scripts/glossary.mjs && astro dev",
+    "build": "node scripts/glossary.mjs && astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/markdown-remark": "^7.3.2",
+    "@astrojs/starlight": "^0.42.6",
+    "@fontsource/be-vietnam-pro": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "astro": "^7.3.8",
+    "astro-mermaid": "^2.1.0",
+    "mermaid": "^11.17.2",
+    "remark-custom-heading-id": "^2.0.0"
+  }
+}
