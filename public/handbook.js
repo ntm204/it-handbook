@@ -50,7 +50,8 @@
   function pageMeta() {
     var h1 = document.getElementById("_top");
     if (!h1 || !content || PAGE === "") return;
-    var words = content.innerText.split(/\s+/).filter(Boolean).length;
+    var clone = content.cloneNode(true); $$(".hb-search-alias", clone).forEach(function (n) { n.remove(); });
+    var words = clone.textContent.split(/\s+/).filter(Boolean).length;
     var hasTra = !!document.getElementById("tra");
     var meta = document.createElement("div");
     meta.className = "page-meta";
@@ -82,7 +83,7 @@
     var walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT, {
       acceptNode: function (n) {
         var p = n.parentElement;
-        if (!p || p.closest("code, pre, a, h1, h2, h3, abbr, .mermaid, summary, .progress-bar, .page-meta")) return NodeFilter.FILTER_REJECT;
+        if (!p || p.closest("code, pre, a, h1, h2, h3, abbr, .mermaid, summary, .progress-bar, .page-meta, .hb-search-alias")) return NodeFilter.FILTER_REJECT;
         return /\S/.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
       },
     });

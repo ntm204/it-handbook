@@ -300,6 +300,9 @@ pre.mermaid:not([data-processed]) { color: transparent; }
   /* Phần mở đầu trang chủ hiện ngay, không hoạt ảnh: đây là nội dung chính (LCP), làm mờ nó khiến Google tính trang tải chậm */
 }
 
+/* Bản không chữ "đ" cho công cụ tìm kiếm: ẩn với mắt và trình đọc màn hình */
+.hb-search-alias { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
 /* Bàn phím: thấy rõ đang ở đâu */
 :focus-visible { outline: 2px solid var(--sl-color-accent); outline-offset: 2px; border-radius: .4rem; }
 

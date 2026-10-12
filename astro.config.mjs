@@ -3,6 +3,7 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import mermaid from "astro-mermaid";
 import customHeadingId from "remark-custom-heading-id";
+import remarkViSearch from "./scripts/remark-vi-search.mjs";
 
 const REPO = "https://github.com/ntm204/it-handbook";
 const BASE = "/it-handbook";
@@ -11,7 +12,7 @@ export default defineConfig({
   site: "https://ntm204.github.io",
   base: BASE,
   trailingSlash: "always",
-  markdown: { remarkPlugins: [customHeadingId] },      // tiêu đề có id cố định: ## Tiêu đề {#id}
+  markdown: { remarkPlugins: [customHeadingId, remarkViSearch] },   // id tiêu đề cố định; tìm "dang nhap" ra "đăng nhập"
   integrations: [
     mermaid({                                         // sơ đồ ```mermaid, tự đổi sáng/tối
       theme: "default",
