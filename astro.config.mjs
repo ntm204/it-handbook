@@ -13,7 +13,16 @@ export default defineConfig({
   trailingSlash: "always",
   markdown: { remarkPlugins: [customHeadingId] },      // tiêu đề có id cố định: ## Tiêu đề {#id}
   integrations: [
-    mermaid({ theme: "default", autoTheme: true }),  // sơ đồ ```mermaid, tự đổi sáng/tối
+    mermaid({                                         // sơ đồ ```mermaid, tự đổi sáng/tối
+      theme: "default",
+      autoTheme: true,
+      mermaidConfig: {
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',  // font có sẵn: đo chữ chính xác
+        themeVariables: { fontSize: "15px" },
+        flowchart: { useMaxWidth: true, nodeSpacing: 32, rankSpacing: 40, padding: 12 },
+        sequence: { useMaxWidth: true, mirrorActors: false, width: 120, actorMargin: 30, actorFontSize: 14, messageFontSize: 14, noteFontSize: 14 },
+      },
+    }),
     starlight({
       title: "Sổ tay IT",
       description: "Sổ tay IT thực chiến bằng tiếng Việt: hệ thống, server, mạng. Mã nguồn mở, ai cũng có thể đóng góp.",
@@ -23,6 +32,17 @@ export default defineConfig({
       social: [{ icon: "github", label: "GitHub", href: REPO }],
       editLink: { baseUrl: `${REPO}/edit/main/` },
       lastUpdated: true,
+      expressiveCode: {
+        themes: ["github-dark-default", "github-light-default"],
+        styleOverrides: {
+          borderRadius: "0.85rem",
+          borderColor: "var(--hb-border)",
+          codeFontFamily: "var(--sl-font-mono)",
+          codeFontSize: "0.82rem",
+          codeLineHeight: "1.7",
+          frames: { shadowColor: "transparent", frameBoxShadowCssValue: "none" },
+        },
+      },
       tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 3 },
       customCss: [
         "@fontsource/be-vietnam-pro/400.css",

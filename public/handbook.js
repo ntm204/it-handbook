@@ -40,7 +40,7 @@
       var h2 = node.matches(".sl-heading-wrapper.level-h2") ? node.querySelector("h2") : null;
       if (h2) {
         current = PARTS[h2.id] ? h2.id : null;
-        if (current) { node.classList.add("part"); h2.classList.add("part"); }
+        if (current) { node.classList.add("part", "part-" + current); h2.classList.add("part"); }
       }
       if (current) node.setAttribute("data-part", current);
     });
