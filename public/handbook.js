@@ -171,6 +171,21 @@
     }
   });
 
+  // ── Đoạn trích kết quả tìm kiếm: bỏ phần chữ không dấu ⟦ … ⟧ (chỉ để tìm "dang nhap" ra "đăng nhập", không để đọc) ──
+  function cleanExcerpts() {
+    var root = document.getElementById("starlight__search");
+    if (!root) return;
+    function clean() {
+      $$(".pagefind-ui__result-excerpt", root).forEach(function (el) {
+        var h = el.innerHTML;
+        if (h.indexOf("⟦") < 0 && h.indexOf("⟧") < 0) return;
+        h = h.replace(/⟦[\s\S]*?⟧/g, " ").replace(/^[^⟦]*?⟧/, " ").replace(/⟦[\s\S]*$/, " ").replace(/\s{2,}/g, " ").trim();
+        el.innerHTML = h;
+      });
+    }
+    new MutationObserver(clean).observe(root, { childList: true, subtree: true });
+  }
+
   // ── Nút lên đầu trang (chỉ hiện khi đã cuộn xuống) ──
   function scrollUi() {
     if (!content || PAGE === "") return;
@@ -196,5 +211,6 @@
   progressBar();
   markSidebar();
   reviewList();
+  cleanExcerpts();
   fetch(BASE + "glossary.json").then(function (r) { return r.json(); }).then(applyGlossary).catch(function () {});
 })();

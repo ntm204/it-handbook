@@ -4,6 +4,8 @@ import starlight from "@astrojs/starlight";
 import mermaid from "astro-mermaid";
 import customHeadingId from "remark-custom-heading-id";
 import remarkViSearch from "./scripts/remark-vi-search.mjs";
+import rehypeSearchSpacing from "./scripts/rehype-search-spacing.mjs";
+import rehypeStackTables from "./scripts/rehype-stack-tables.mjs";
 
 const REPO = "https://github.com/ntm204/it-handbook";
 const BASE = "/it-handbook";
@@ -12,7 +14,8 @@ export default defineConfig({
   site: "https://ntm204.github.io",
   base: BASE,
   trailingSlash: "always",
-  markdown: { remarkPlugins: [customHeadingId, remarkViSearch] },   // id tiêu đề cố định; tìm "dang nhap" ra "đăng nhập"
+  // id tiêu đề cố định; tìm "dang nhap" ra "đăng nhập"; đoạn trích tìm kiếm không dính chữ; bảng nhiều cột thành thẻ trên điện thoại
+  markdown: { remarkPlugins: [customHeadingId, remarkViSearch], rehypePlugins: [rehypeSearchSpacing, rehypeStackTables] },
   integrations: [
     mermaid({                                         // sơ đồ ```mermaid, tự đổi sáng/tối
       theme: "default",
@@ -47,6 +50,8 @@ export default defineConfig({
           codeLineHeight: "1.7",
           frames: { shadowColor: "transparent", frameBoxShadowCssValue: "none" },
         },
+        // Lệnh dài tự xuống dòng thay vì bị che (phải vuốt ngang); dòng nối thụt vào 4 ký tự để phân biệt với dòng lệnh mới
+        defaultProps: { wrap: true, hangingIndent: 4 },
       },
       tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 3 },
       customCss: [
