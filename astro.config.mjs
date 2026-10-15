@@ -33,7 +33,7 @@ export default defineConfig({
         themes: ["github-dark-default", "github-light-default"],
         styleOverrides: {
           borderRadius: "0.85rem",
-          borderColor: "var(--hb-border)",
+          borderColor: "transparent",   // khung code không viền, chỉ nền
           codeFontFamily: "var(--sl-font-mono)",
           codeFontSize: "0.82rem",
           codeLineHeight: "1.7",
