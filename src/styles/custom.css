@@ -24,8 +24,9 @@
   --sl-color-black: #0c0c0f;
   --sl-color-bg-nav: color-mix(in srgb, #0c0c0f 78%, transparent);
   --sl-color-bg-sidebar: #0c0c0f;
-  --sl-color-hairline: #1f1f25;
-  --sl-color-hairline-light: #1f1f25;
+  --sl-color-hairline: transparent;          /* không dùng đường kẻ chia cắt: tách bằng khoảng trống */
+  --sl-color-hairline-light: transparent;
+  --sl-color-hairline-shade: transparent;
 
   --hb-surface: #131317;
   --hb-surface-2: #1a1a20;
@@ -51,8 +52,9 @@
   --sl-color-black: #ffffff;
   --sl-color-bg-nav: color-mix(in srgb, #ffffff 80%, transparent);
   --sl-color-bg-sidebar: #ffffff;
-  --sl-color-hairline: #ececf0;
-  --sl-color-hairline-light: #ececf0;
+  --sl-color-hairline: transparent;
+  --sl-color-hairline-light: transparent;
+  --sl-color-hairline-shade: transparent;
 
   --hb-surface: #f8f8fa;
   --hb-surface-2: #f2f2f5;
@@ -70,6 +72,8 @@ body { -webkit-font-smoothing: antialiased; }
 /* Chỉ viết backdrop-filter chuẩn: trình build tự thêm -webkit-; viết cả hai thì bản chuẩn bị bỏ mất (Chrome không mờ) */
 header.header, mobile-starlight-toc nav { backdrop-filter: blur(14px) saturate(1.4); }
 header.header { border-bottom: 0; }
+.social-icons::after { display: none; }                          /* vạch đứng giữa GitHub và nút giao diện */
+mobile-starlight-toc nav { border-top: 0; }
 /* Hai thanh bên trong suốt, không viền: hoà vào trang thay vì đóng khung (trên điện thoại menu vẫn có nền khi mở) */
 @media (min-width: 50rem) {
   .sidebar-pane { background: transparent !important; border-inline-end: 0 !important; }
@@ -131,17 +135,14 @@ starlight-toc a[aria-current="true"] { color: var(--sl-color-accent); }
   display: table; width: 100%; font-size: .86rem;
   border-collapse: separate; border-spacing: 0; border: 0;
 }
-.sl-markdown-content :is(th, td) { border: 0; padding: .6rem .75rem; }
+.sl-markdown-content :is(th, td) { border: 0; padding: .55rem .75rem; }
 .sl-markdown-content :is(th, td):first-child { padding-left: 0; }
-.sl-markdown-content th { background: transparent; color: var(--sl-color-gray-3); font-size: .75rem; font-weight: 500; text-align: left; border-bottom: 1px solid var(--sl-color-hairline); }
-.sl-markdown-content td { border-top: 1px solid var(--sl-color-hairline); }
-.sl-markdown-content tbody tr:first-child td { border-top: 0; }
+.sl-markdown-content th { background: transparent; color: var(--sl-color-gray-3); font-size: .75rem; font-weight: 500; text-align: left; padding-bottom: .35rem; }
 /* Bảng nhiều cột trên điện thoại: mỗi hàng là một thẻ, ô đầu làm tiêu đề, các ô sau có nhãn cột (scripts/rehype-stack-tables.mjs) */
 @media (max-width: 40rem) {
   .sl-markdown-content table.hb-stack :is(tbody, tr, td) { display: block; }
   .sl-markdown-content table.hb-stack thead { display: none; }
-  .sl-markdown-content table.hb-stack tr { padding: .9rem 0; border-top: 1px solid var(--sl-color-hairline); }
-  .sl-markdown-content table.hb-stack tbody tr:first-child { border-top: 0; }
+  .sl-markdown-content table.hb-stack tr { padding: .8rem 0; }
   .sl-markdown-content table.hb-stack :is(tr, td) { margin: 0; }   /* bỏ khoảng cách 1rem Starlight thêm giữa các phần tử liền nhau */
   .sl-markdown-content table.hb-stack td { border: 0; padding: .15rem 0; }
   .sl-markdown-content table.hb-stack td:first-child { font-weight: 600; color: var(--sl-color-white); }
@@ -156,6 +157,8 @@ starlight-toc a[aria-current="true"] { color: var(--sl-color-accent); }
   background: var(--hb-surface-2); border: 0; color: var(--sl-color-white);
   white-space: nowrap;
 }
+/* Lệnh dài trong bảng được xuống dòng ở dấu cách để bảng không tràn khỏi khung nội dung (copy vẫn lấy đủ lệnh) */
+.sl-markdown-content td code { white-space: normal; }
 .sl-markdown-content td code { cursor: copy; transition: background .15s, color .15s; }
 .sl-markdown-content td code:hover { background: color-mix(in srgb, var(--sl-color-accent) 14%, transparent); color: var(--sl-color-accent); }
 
@@ -325,9 +328,9 @@ button.sl-menu-button {
   background: var(--hb-surface-2); color: var(--sl-color-white); border: 0; box-shadow: none;
 }
 button.sl-menu-button:has(~ :popover-open) { background: var(--sl-color-gray-5); }
-/* "Trên trang này" trên điện thoại: nút nền nhạt không viền; danh sách mở ra có viền dưới mảnh để tách khỏi nội dung */
+/* "Trên trang này" trên điện thoại: nút nền nhạt; danh sách mở ra tách khỏi nội dung bằng bóng mềm thay cho viền */
 mobile-starlight-toc .toggle { border: 0; background: var(--hb-surface-2); }
-mobile-starlight-toc .dropdown { border-color: var(--sl-color-hairline); }
+mobile-starlight-toc .dropdown { border: 0; box-shadow: 0 16px 32px -16px rgb(0 0 0 / .5); }
 #starlight__search {
   --pagefind-ui-border-radius: .6rem;
   --pagefind-ui-border-width: 1px;
