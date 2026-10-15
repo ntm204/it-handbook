@@ -19,7 +19,7 @@ body:
     id: mang
     attributes:
       label: Thuộc mảng nào
-      options: [Mạng, Windows / Active Directory, Linux server, Switch / Firewall, Máy in / camera / thiết bị khác, OT / máy móc sản xuất, Khác]
+      options: [Mạng, Windows / Active Directory, Linux server, Switch / Firewall, Git, Docker, Terminal, Máy in / camera / thiết bị khác, Khác]
     validations:
       required: true
   - type: textarea

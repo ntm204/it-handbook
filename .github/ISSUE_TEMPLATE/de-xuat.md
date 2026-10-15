@@ -1,14 +1,14 @@
 ---
-name: Đề xuất chủ đề mới
-about: Gợi ý một trang, bài lab hay chủ đề sổ tay nên có
+name: Đề xuất lệnh hoặc chủ đề
+about: Gợi ý một lệnh hay, hoặc một bảng tra sổ tay nên có
 title: "[Đề xuất] "
 labels: de-xuat
 ---
 
-**Chủ đề / trang muốn có:**
+**Lệnh / chủ đề muốn thêm:**
 
-**Vì sao cần (bạn gặp tình huống nào ngoài thực tế):**
+**Dùng để làm gì (bạn gặp tình huống nào ngoài thực tế):**
 
-**Nguồn tham khảo bạn biết (nếu có):**
+**Đã chạy thử trên đâu, hoặc nguồn chính thống (nếu có):**
 
-**Bạn có muốn tự viết không?** Có / Không — người duy trì sẽ hỗ trợ biên tập.
+**Bạn có muốn tự thêm không?** Có / Không — người duy trì sẽ hỗ trợ.

@@ -85,16 +85,6 @@ header.header { border-bottom: 1px solid var(--sl-color-hairline); }
 .sidebar-content a[aria-current="page"]:hover,
 .sidebar-content a[aria-current="page"]:focus { background: var(--sl-color-accent-low); color: var(--sl-color-accent-high); font-weight: 600; }
 .sidebar-content .large { font-size: .875rem; font-weight: 600; color: var(--sl-color-white); }
-.sidebar-content ul.top-level { counter-reset: step; }
-.sidebar-content ul.top-level > li:nth-child(-n+6) { counter-increment: step; }
-.sidebar-content ul.top-level > li:nth-child(-n+6) > a::before {
-  content: counter(step, decimal-leading-zero);
-  font-family: var(--sl-font-mono); font-size: .7rem; color: var(--sl-color-gray-4); margin-right: .65rem;
-}
-.sidebar-content ul.top-level > li:nth-child(-n+6) > a[aria-current="page"]::before { color: var(--sl-color-accent); }
-.sidebar-content ul.top-level > li:nth-child(7) { margin-top: .9rem; padding-top: .9rem; border-top: 1px solid var(--sl-color-hairline); }
-.sidebar-content a.learned::after { content: "✓"; margin-left: auto; padding-left: .5rem; color: var(--hb-green); font-size: .75rem; }
-.sidebar-content a.due::after { content: "●"; margin-left: auto; padding-left: .5rem; color: var(--hb-amber); font-size: .6rem; }
 
 /* Mục lục bên phải */
 starlight-toc a { font-size: .8rem; }
@@ -103,12 +93,12 @@ starlight-toc a { font-size: .8rem; }
 .content-panel h1#_top { font-size: clamp(2rem, 1.5rem + 1.6vw, 2.6rem); font-weight: 700; letter-spacing: -.03em; line-height: 1.15; }
 .page-meta { display: flex; align-items: center; justify-content: space-between; gap: .75rem; flex-wrap: wrap; font-size: .82rem; color: var(--sl-color-gray-3); margin-top: .75rem; }
 .page-tools { display: flex; gap: .4rem; }
-.page-tools button, .progress-bar button {
+.page-tools button {
   font: 500 .78rem var(--sl-font); color: var(--sl-color-gray-1);
   background: var(--hb-surface); border: 1px solid var(--hb-border); border-radius: 999px;
   padding: .32rem .8rem; cursor: pointer; transition: border-color .15s, color .15s, background .15s;
 }
-.page-tools button:hover, .progress-bar button:hover { border-color: var(--sl-color-accent); color: var(--sl-color-accent); }
+.page-tools button:hover { border-color: var(--sl-color-accent); color: var(--sl-color-accent); }
 
 /* ════════ Nội dung ════════ */
 .sl-markdown-content { color: var(--sl-color-gray-2); }
@@ -117,7 +107,7 @@ starlight-toc a { font-size: .8rem; }
 /* Cỡ chữ đặt ở khung bọc (không đặt ở h2/h3): icon liên kết tiêu đề tính theo em của khung này, đặt sai sẽ đè lên chữ */
 .sl-markdown-content .sl-heading-wrapper.level-h2 { font-size: 1.45rem; }
 .sl-markdown-content .sl-heading-wrapper.level-h3 { font-size: 1.12rem; }
-.sl-markdown-content :is(.level-h2 > h2:not(.part), .level-h3 > h3) { font-size: inherit; }
+.sl-markdown-content :is(.level-h2 > h2, .level-h3 > h3) { font-size: inherit; }
 .sl-markdown-content h2 { font-weight: 650; }
 .sl-markdown-content h3 { font-weight: 600; }
 .sl-markdown-content strong { color: var(--sl-color-white); font-weight: 600; }
@@ -128,46 +118,6 @@ starlight-toc a { font-size: .8rem; }
 
 /* Đoạn mở đầu */
 .sl-markdown-content > p:first-child { font-size: 1.05rem; }
-
-/* Mục tiêu trang: thẻ nền nhạt */
-.sl-markdown-content blockquote {
-  max-width: 70ch; margin-top: 1.25rem; padding: .9rem 1.1rem;
-  border: 1px solid var(--hb-border); border-radius: var(--hb-radius);
-  background: linear-gradient(120deg, var(--sl-color-accent-low), transparent 75%);
-  color: var(--sl-color-white); font-style: normal;
-}
-.sl-markdown-content blockquote::before {
-  content: "Mục tiêu"; display: block;
-  font-size: .72rem; font-weight: 600; letter-spacing: .02em; color: var(--sl-color-accent); margin-bottom: .2rem;
-}
-.sl-markdown-content blockquote p { margin: 0; }
-
-/* Liên quan: các nút bo tròn */
-.sl-markdown-content p.related { max-width: none; font-size: 0; display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; margin-top: .9rem; }
-.sl-markdown-content p.related::before { content: "Liên quan"; font-size: .78rem; color: var(--sl-color-gray-3); margin-right: .2rem; }
-.sl-markdown-content p.related a {
-  font-size: .8rem; font-weight: 500; padding: .28rem .75rem; border-radius: 999px;
-  background: var(--hb-surface); border: 1px solid var(--hb-border); color: var(--sl-color-gray-1);
-}
-.sl-markdown-content p.related a:hover { border-color: var(--sl-color-accent); color: var(--sl-color-accent); text-decoration: none; }
-
-/* ════════ Phần Hiểu · Làm · Tra: nhãn bo tròn, mỗi phần một màu ════════ */
-.sl-markdown-content .sl-heading-wrapper.part { margin-top: 4.5rem; display: flex; flex-direction: column; align-items: flex-start; gap: .6rem; }
-.sl-markdown-content .sl-heading-wrapper.part::after { font-size: .92rem; color: var(--sl-color-gray-3); }
-.sl-markdown-content .sl-heading-wrapper.part-hieu::after { content: "Khái niệm và cơ chế: vì sao mọi thứ chạy như vậy."; }
-.sl-markdown-content .sl-heading-wrapper.part-lam::after  { content: "Quy trình từng bước cho việc cụ thể."; }
-.sl-markdown-content .sl-heading-wrapper.part-tra::after  { content: "Bảng lệnh để tra nhanh. Bấm vào lệnh để copy."; }
-.sl-markdown-content h2.part {
-  --part: var(--sl-color-accent); --part-low: var(--sl-color-accent-low);
-  display: inline-flex; align-items: center; gap: .5rem; margin: 0;
-  font-size: .8rem; font-weight: 600; letter-spacing: .01em;
-  padding: .3rem .8rem .3rem .65rem; border-radius: 999px;
-  background: var(--part-low); color: var(--part);
-}
-.sl-markdown-content h2.part::before { content: ""; width: .45rem; height: .45rem; border-radius: 50%; background: var(--part); box-shadow: 0 0 0 3px color-mix(in srgb, var(--part) 25%, transparent); }
-.sl-markdown-content h2#lam.part { --part: var(--hb-green); --part-low: var(--hb-green-low); }
-.sl-markdown-content h2#tra.part { --part: var(--hb-amber); --part-low: var(--hb-amber-low); }
-.sl-markdown-content .sl-heading-wrapper.part .sl-anchor-link { display: none; }
 
 /* ════════ Bảng ════════ */
 .sl-markdown-content table {
@@ -216,40 +166,6 @@ starlight-toc a { font-size: .8rem; }
 .starlight-aside--danger  { background: color-mix(in srgb, #f87171 7%, transparent); }
 .starlight-aside--tip     { background: color-mix(in srgb, var(--hb-green) 7%, transparent); }
 
-/* ════════ Tự kiểm tra ════════ */
-.sl-markdown-content details {
-  max-width: 70ch; margin: 0 0 .6rem;
-  border: 1px solid var(--hb-border); border-radius: var(--hb-radius); background: var(--hb-surface);
-  transition: border-color .15s;
-}
-.sl-markdown-content :not(details) + details { margin-top: 1rem; }   /* cách tiêu đề như các khối khác */
-.sl-markdown-content details:hover { border-color: color-mix(in srgb, var(--sl-color-accent) 40%, var(--hb-border)); }
-.sl-markdown-content details summary { list-style: none; cursor: pointer; padding: .8rem 2.6rem .8rem 1rem; position: relative; font-weight: 500; color: var(--sl-color-white); }
-.sl-markdown-content details summary::-webkit-details-marker { display: none; }
-/* Starlight có sẵn mũi tên bên trái; đã có mũi tên bên phải nên bỏ cái này để không trùng */
-.sl-markdown-content details summary::before { display: none; }
-.sl-markdown-content details summary::after {
-  content: ""; position: absolute; right: 1.1rem; top: 1.15rem; width: .5rem; height: .5rem;
-  border-right: 1.5px solid var(--sl-color-gray-3); border-bottom: 1.5px solid var(--sl-color-gray-3);
-  transform: rotate(45deg); transition: transform .2s;
-}
-.sl-markdown-content details[open] summary::after { transform: rotate(225deg); top: 1.35rem; }
-.sl-markdown-content details > :not(summary) { margin-inline: 1rem; }
-.sl-markdown-content details > :last-child { margin-bottom: .9rem; }
-
-/* ════════ Cần nhớ ════════ */
-.sl-heading-wrapper:has(#can-nho) + ol { counter-reset: nho; list-style: none; padding: 0; max-width: 70ch; }
-.sl-heading-wrapper:has(#can-nho) + ol > li {
-  counter-increment: nho; position: relative; margin: 0 0 .5rem;
-  padding: .8rem 1rem .8rem 3rem; color: var(--sl-color-gray-1);
-  background: var(--hb-surface); border: 1px solid var(--hb-border); border-radius: var(--hb-radius);
-}
-.sl-heading-wrapper:has(#can-nho) + ol > li::before {
-  content: counter(nho); position: absolute; left: .9rem; top: .8rem;
-  width: 1.4rem; height: 1.4rem; border-radius: .45rem; display: grid; place-items: center;
-  font: 600 .72rem var(--sl-font-mono); color: var(--sl-color-accent); background: var(--sl-color-accent-low);
-}
-
 /* ════════ Trang chủ ════════ */
 .hero { position: relative; isolation: isolate; padding-block: 3rem 1rem; }
 .hero { grid-template-columns: 100% !important; }   /* không có ảnh minh hoạ: tiêu đề dùng hết bề ngang */
@@ -274,18 +190,10 @@ starlight-toc a { font-size: .8rem; }
 .hb-card .t { font-weight: 600; font-size: .95rem; line-height: 1.4; }
 .hb-card .d { font-size: .84rem; color: var(--sl-color-gray-3); font-weight: 400; line-height: 1.55; }
 .hb-card code { align-self: flex-start; font-size: .78rem !important; white-space: normal !important; word-break: break-word; }
-.hb-card .n {
-  align-self: flex-start; font: 600 .7rem var(--sl-font-mono); color: var(--sl-color-accent);
-  background: var(--sl-color-accent-low); padding: .15rem .45rem; border-radius: .4rem;
-}
-.hb-panel { margin-top: 1rem; padding: 1.1rem 1.2rem; border: 1px solid var(--hb-border); border-radius: var(--hb-radius); background: var(--hb-surface); }
-.hb-panel p { margin: 0; }
-.hb-panel ul { margin: .4rem 0 0; }
 .hb-tips { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; font-size: .84rem; color: var(--sl-color-gray-3); }
 .hb-tips span { padding: .35rem .75rem; border: 1px solid var(--hb-border); border-radius: 999px; background: var(--hb-surface); }
 
-/* ════════ Thuật ngữ, thông báo, tiến độ ════════ */
-abbr.term { text-decoration: underline dotted color-mix(in srgb, var(--sl-color-gray-3) 70%, transparent); text-underline-offset: 4px; cursor: help; }
+/* ════════ Chú thích & thông báo ════════ */
 #tip, #toast {
   position: fixed; z-index: 100; color: var(--sl-color-black); background: var(--sl-color-white);
   font: 400 .8rem/1.55 var(--sl-font); border-radius: .6rem; pointer-events: none; opacity: 0;
@@ -295,17 +203,6 @@ abbr.term { text-decoration: underline dotted color-mix(in srgb, var(--sl-color-
 #tip.show { opacity: 1; transform: translateY(0); }
 #toast { left: 50%; bottom: 1.75rem; transform: translate(-50%, .75rem); padding: .55rem 1rem; font-weight: 500; max-width: 90vw; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 #toast.show { opacity: 1; transform: translate(-50%, 0); }
-.progress-bar {
-  display: flex; align-items: center; justify-content: space-between; gap: .75rem; flex-wrap: wrap;
-  margin-top: 3rem; padding: .9rem 1.05rem; border: 1px solid var(--hb-border); border-radius: var(--hb-radius);
-  background: var(--hb-surface); font-size: .86rem; color: var(--sl-color-gray-2);
-}
-
-/* Sơ đồ: khung mềm; ẩn mã thô trong lúc thư viện vẽ đang tải */
-pre.mermaid { border: 1px solid var(--hb-border) !important; border-radius: var(--hb-radius) !important; background: var(--hb-surface) !important; padding: 1.25rem !important; }
-pre.mermaid:not([data-processed]) { color: transparent; }
-/* Nhãn trên mũi tên sơ đồ (Đúng/Sai): nền trùng nền khung thay cho ô xám mặc định của mermaid */
-pre.mermaid :is(.edgeLabel, .labelBkg, .edgeLabel p, .edgeLabel rect) { background-color: var(--hb-surface) !important; fill: var(--hb-surface) !important; }
 
 /* ── Hiệu ứng khi cuộn: CSS thuần, an toàn ──
    Trình duyệt hỗ trợ scroll-driven animation: khối nội dung nổi lên và rõ dần theo vị trí cuộn.
@@ -313,7 +210,7 @@ pre.mermaid :is(.edgeLabel, .labelBkg, .edgeLabel p, .edgeLabel rect) { backgrou
 @keyframes hb-rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
-    .sl-markdown-content > :is(p, ul, ol, table, details, blockquote, .expressive-code, pre, .starlight-aside, .sl-heading-wrapper, .hb-grid, .hb-panel),
+    .sl-markdown-content > :is(p, ul, ol, table, .expressive-code, pre, .starlight-aside, .sl-heading-wrapper, .hb-grid),
     .hb-grid > .hb-card {
       animation: hb-rise linear both;
       animation-timeline: view();
@@ -349,18 +246,15 @@ pre.mermaid :is(.edgeLabel, .labelBkg, .edgeLabel p, .edgeLabel rect) { backgrou
   }
   @page { size: A4; margin: 14mm 12mm; }
   header.header, nav.sidebar, .right-sidebar-container, .mobile-starlight-toc, starlight-toc, .pagination-links,
-  footer, .page-tools, .progress-bar, .sl-anchor-link, #toast, #tip, site-search { display: none !important; }
+  footer, .page-tools, .sl-anchor-link, #toast, #tip, site-search { display: none !important; }
   .main-frame, .content-panel { padding: 0 !important; border: 0 !important; }
   .sl-container { max-width: none !important; }
   body { font-size: 11px; background: #fff; }
   .sl-markdown-content table { display: table !important; width: 100% !important; font-size: 10px; }
   .sl-markdown-content :not(pre) > code { white-space: normal; }
   h2, h3 { break-after: avoid; }
-  table, pre, details, .mermaid { break-inside: avoid; }
-  details > :not(summary) { display: block !important; }
-  abbr.term { text-decoration: none; }
+  table, pre { break-inside: avoid; }
   *, *::before, *::after { animation: none !important; }
-  body.print-tra .sl-markdown-content > *:not([data-part="tra"]) { display: none !important; }
 }
 
 /* ════════ Thành phần của trình duyệt: thiết kế lại cho đồng bộ ════════ */
@@ -445,7 +339,7 @@ input:focus-visible { outline: 2px solid var(--sl-color-accent); outline-offset:
 /* Vùng chạm tối thiểu 44px trên điện thoại (WCAG 2.2, luật Fitts) */
 @media (max-width: 50rem) {
   :root { --sl-menu-button-size: 2.75rem; }   /* Starlight tự căn giữa nút menu theo biến này */
-  .page-tools button, .progress-bar button, .sl-markdown-content p.related a { min-height: 2.75rem; padding-inline: 1rem; display: inline-flex; align-items: center; }
+  .page-tools button { min-height: 2.75rem; padding-inline: 1rem; display: inline-flex; align-items: center; }
   .sidebar-content a { min-height: 2.75rem; display: flex; align-items: center; }
   site-search button[data-open-modal] { width: 2.75rem; height: 2.75rem; }
   .site-title, footer .meta a, mobile-starlight-toc nav a { min-height: 2.75rem; display: flex; align-items: center; }

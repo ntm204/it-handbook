@@ -1,33 +1,34 @@
 # Sổ tay IT
 
-**Sổ tay thực chiến bằng tiếng Việt cho người làm hệ thống, server và mạng**, đặc biệt là IT ở nhà máy, khu công nghiệp.
+**Bảng tra lệnh bằng tiếng Việt cho người làm IT**: Linux, mạng, Windows & AD, switch & firewall, Git, Docker, terminal.
 
 📖 Đọc tại **https://ntm204.github.io/it-handbook/**
 
-Không lý thuyết suông: mỗi lệnh đều đúng cú pháp, mỗi mẹo đều có nguồn chính thống hoặc đã chạy thử, mỗi bài lab có kết quả mẫu thật.
+Ngắn, đúng, dùng được ngay: mỗi trang mở đầu bằng bảng "gặp vấn đề → chạy lệnh gì trước", sau đó là các bảng lệnh theo việc. Lệnh đã chạy thử hoặc có nguồn chính thống. Bấm vào lệnh là copy.
 
 ## Có gì bên trong
 
-| Phần | Nội dung |
+| Trang | Có gì |
 |---|---|
-| **Xử lý sự cố** | Quy trình 7 bước chuẩn CompTIA và 10 sự cố hay gặp: mất mạng, tài khoản domain bị khoá, server đầy ổ, camera mất hình… |
-| **Mạng** | Từ lúc cắm dây đến lúc mở được web, chia subnet, VLAN, NAT, lệnh tương đương Linux / Windows / macOS / Cisco |
-| **Linux server** | Đọc tình trạng server trong 60 giây, systemd, log, ổ đĩa, SSH, firewall |
-| **Windows & Active Directory** | Đăng nhập domain hoạt động thế nào, tìm máy gây khoá tài khoản, file server, robocopy |
-| **Switch & Firewall** | Cisco IOS, HPE/Aruba, FortiGate: VLAN, lỗi cổng, vì sao gói tin bị chặn |
-| **Lab thực hành** | 6 bài có làm mẫu và đáp án, chạy trên máy Linux ảo hoặc Cisco Packet Tracer |
+| **Linux** | Tình trạng server trong 60 giây, dịch vụ, log, ổ đĩa, SSH, firewall, cron |
+| **Mạng** | Lệnh tương đương Linux / Windows / macOS / Cisco, DNS, bắt gói tin, subnet, cổng hay gặp |
+| **Windows & AD** | Mạng, tài khoản domain bị khoá, file server, robocopy, máy in |
+| **Switch & Firewall** | Cisco IOS, HPE/Aruba, FortiGate: cổng, VLAN, tìm MAC, lỗi cổng, debug |
+| **Git** | Hằng ngày, nhánh, lịch sử, cứu khi lỡ tay |
+| **Docker** | Container, image, Compose, dọn dung lượng |
+| **Terminal & Neovim** | Phím tắt dòng lệnh, tìm và lọc, tmux, vim, LazyVim |
 
 ## Đóng góp
 
-Sổ tay mạnh nhất ở **kinh nghiệm thật**: những sự cố bạn đã gặp và xử lý. Thứ đó không sách nào hay AI nào viết thay được.
+Lệnh hay nhất là lệnh người làm nghề dùng thật hằng ngày. Bạn có lệnh nào hay, gửi lên để mọi người cùng dùng.
 
 | Bạn muốn | Cách làm | Cần biết git? |
 |---|---|---|
 | **Chia sẻ một sự cố đã gặp** | [Điền mẫu chia sẻ sự cố](../../issues/new?template=chia-se-su-co.yml) | Không |
 | Báo lỗi sai, lệnh sai | [Báo lỗi nội dung](../../issues/new?template=bao-loi.yml) | Không |
 | Sửa một chỗ nhỏ | Bấm **Sửa trang này** ở cuối mỗi trang trên web | Không, sửa ngay trên GitHub |
-| Đề xuất chủ đề nên có | [Gửi đề xuất](../../issues/new?template=de-xuat.md) | Không |
-| Viết trang mới, bài lab | Đọc [CONTRIBUTING.md](CONTRIBUTING.md) | Có |
+| Đề xuất lệnh hay, chủ đề mới | [Gửi đề xuất](../../issues/new?template=de-xuat.md) | Không |
+| Thêm trang, bổ sung lệnh | Đọc [CONTRIBUTING.md](CONTRIBUTING.md) | Có |
 
 Mọi người đóng góp đều được ghi tên trong [CONTRIBUTORS.md](CONTRIBUTORS.md). Hãy đọc [Quy tắc ứng xử](CODE_OF_CONDUCT.md) trước khi tham gia.
 
@@ -44,9 +45,9 @@ Nội dung nằm trong `src/content/docs/`, mỗi trang là một file Markdown.
 
 ## Giấy phép
 
-- **Nội dung** (tài liệu, bài lab): [CC BY-SA 4.0](LICENSE). Được dùng lại, chỉnh sửa, kể cả cho mục đích thương mại, miễn là **ghi nguồn** và chia sẻ lại với cùng giấy phép.
+- **Nội dung** (các trang tài liệu): [CC BY-SA 4.0](LICENSE). Được dùng lại, chỉnh sửa, kể cả cho mục đích thương mại, miễn là **ghi nguồn** và chia sẻ lại với cùng giấy phép.
 - **Mã nguồn** (cấu hình, script, giao diện): [MIT](LICENSE-CODE).
 
 ---
 
-**English:** A practical, Vietnamese-language handbook for systems, server and network administration, with a focus on IT in Vietnamese factories and industrial parks. Content is licensed CC BY-SA 4.0, code MIT. Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
+**English:** Vietnamese-language command cheat sheets for IT work: Linux, networking, Windows & AD, switches & firewalls, Git, Docker and the terminal. Content is licensed CC BY-SA 4.0, code MIT. Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).

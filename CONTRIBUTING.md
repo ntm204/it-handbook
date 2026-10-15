@@ -1,20 +1,21 @@
 # Đóng góp cho Sổ tay IT
 
-Cảm ơn bạn đã muốn đóng góp. Sổ tay này có giá trị nhờ **kinh nghiệm thật** của người làm nghề, nên đóng góp nhỏ cũng đáng quý: một lệnh đúng hơn, một lỗi chính tả, một sự cố bạn từng xử lý.
+Cảm ơn bạn đã muốn đóng góp. Sổ tay là **bảng tra lệnh**: ngắn, đúng, dùng được ngay. Đóng góp nhỏ cũng đáng quý: một lệnh hay bạn dùng hằng ngày, một lệnh sai cần sửa, một triệu chứng bạn từng gặp.
 
 ## Cách nhanh nhất (không cần git)
 
 | Việc | Cách làm |
 |---|---|
-| Chia sẻ một sự cố đã gặp | [Điền mẫu chia sẻ sự cố](../../issues/new?template=chia-se-su-co.yml). Người duy trì sẽ biên tập và đưa vào sổ tay, ghi tên bạn |
+| Đề xuất một lệnh hay | [Gửi đề xuất](../../issues/new?template=de-xuat.md) |
+| Chia sẻ một sự cố đã gặp | [Điền mẫu chia sẻ sự cố](../../issues/new?template=chia-se-su-co.yml). Triệu chứng và lệnh xử lý sẽ vào bảng "Gặp vấn đề", ghi tên bạn |
 | Báo nội dung sai | [Điền mẫu báo lỗi](../../issues/new?template=bao-loi.yml) |
 | Sửa trực tiếp một chỗ nhỏ | Trên trang web, bấm **Sửa trang này** ở cuối trang → GitHub mở trình sửa → **Propose changes** |
 
-## Viết trang mới hoặc bài lab
+## Thêm trang hoặc bổ sung lệnh
 
 1. Fork repo, tạo nhánh mới.
 2. Cần Node 22.12 trở lên (xem `.nvmrc`). Chạy trên máy: `npm install` rồi `npm run dev`, mở `http://localhost:4321/it-handbook/`.
-3. Chép [trang mẫu](src/content/docs/_mau-trang.md) sang tên mới trong `src/content/docs/` (bài lab đặt ở `src/content/docs/lab/`).
+3. Bổ sung vào trang có sẵn, hoặc chép [trang mẫu](src/content/docs/_mau-trang.md) sang tên mới trong `src/content/docs/`.
 4. Thêm trang vào thanh bên trong `astro.config.mjs`.
 5. Kiểm tra `npm run build && npm run check` (build và kiểm liên kết) không lỗi, rồi mở Pull Request. GitHub sẽ tự chạy lại bước này cho mọi Pull Request.
 
@@ -25,34 +26,31 @@ Sổ tay giữ uy tín nhờ mấy nguyên tắc sau. Pull Request không đạt
 | Nguyên tắc | Cụ thể |
 |---|---|
 | **Đúng và kiểm chứng được** | Lệnh phải chạy thật. Mẹo ít người biết phải có nguồn chính thống (RFC, Microsoft Learn, man page, tài liệu hãng) hoặc ghi rõ đã thử trên môi trường nào |
-| **Dùng được ngay** | Viết thứ người đọc làm theo được. Không chép lý thuyết dài từ sách |
+| **Ngắn** | Một dòng một việc. Không giải thích dài; cần lưu ý thì một câu dưới bảng, hoặc `:::caution` nếu làm sai có thể mất dữ liệu |
 | **Ghi rõ nếu chưa thử** | Ví dụ: "lệnh theo tài liệu Cisco, chưa chạy trên thiết bị thật" |
-| **Tiếng Việt rõ ràng** | Câu ngắn. Thuật ngữ giữ tiếng Anh kèm giải thích; thuật ngữ mới thêm vào `thuat-ngu.md` |
+| **Tiếng Việt rõ ràng** | Cột "Việc" viết như người dùng hỏi: "Ai đang giữ cổng", "Ổ đầy". Thuật ngữ giữ tiếng Anh |
 | **Không thông tin nhạy cảm** | Không IP thật, tên công ty, mật khẩu, cấu hình thật của nơi bạn làm. Thay bằng ví dụ `192.168.10.x`, `<tên-server>` |
 | **Tôn trọng bản quyền** | Không chép nguyên văn sách hay khoá học. Viết lại bằng lời của bạn và dẫn nguồn |
 
 ## Cấu trúc một trang
 
-Mỗi trang chủ đề gồm (xem [trang mẫu](src/content/docs/_mau-trang.md)):
+Xem [trang mẫu](src/content/docs/_mau-trang.md):
 
-1. **Mở đầu:** một câu giới thiệu → mục tiêu học → dòng "Liên quan".
-2. **Hiểu:** khái niệm, cơ chế, sơ đồ.
-3. **Làm:** quy trình từng bước.
-4. **Tra:** bảng lệnh. Cột trái là việc cần làm, cột phải là lệnh.
-5. **Tự kiểm tra:** câu hỏi tình huống, đáp án ẩn trong `<details>`.
-6. **Cần nhớ:** đúng 3 ý.
-7. **Nguồn tham khảo.**
+1. **Một câu mở đầu:** trang gồm lệnh gì, đã thử trên đâu.
+2. **Gặp vấn đề:** bảng `Triệu chứng | Chạy trước`.
+3. **Các nhóm lệnh:** mỗi nhóm một bảng `Việc | Lệnh`. Lệnh nằm trong dấu \` để người đọc bấm là copy.
+4. **Nguồn:** tài liệu chính thức.
 
 | Cú pháp | Dùng cho |
 |---|---|
-| `## Tiêu đề {#id-khong-dau}` | Mục cần liên kết tới. Id không dấu, không bắt đầu bằng số |
-| `:::note` … `:::` | Ghi chú nên biết |
-| `:::caution` … `:::` | Cảnh báo: làm sai có thể mất dữ liệu hoặc mất kết nối |
-| ` ```mermaid ` | Sơ đồ. Nên vẽ theo chiều dọc, chữ ngắn |
+| `## Tiêu đề {#id-khong-dau}` | Mỗi nhóm lệnh. Id không dấu, không bắt đầu bằng số |
+| `<tên>`, `<ip>` | Chỗ người đọc tự điền |
+| ` ``` ` | Cấu hình nhiều dòng (switch, cron, ssh config) |
+| `:::caution` … `:::` | Lệnh làm sai có thể mất dữ liệu hoặc mất kết nối |
 
 ## Commit
 
-Viết commit message bằng tiếng Việt, ngắn, nói rõ đã làm gì. Ví dụ: `Xử lý sự cố: thêm trường hợp máy in mạng đổi IP`.
+Viết commit message bằng tiếng Việt, ngắn, nói rõ đã làm gì. Ví dụ: `Linux: thêm lệnh xem dung lượng từng thư mục`.
 
 ## Ghi công
 

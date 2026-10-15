@@ -1,71 +1,34 @@
 ---
 title: Sổ tay IT
-description: Sổ tay IT thực chiến bằng tiếng Việt cho người làm hệ thống, server và mạng — đặc biệt là IT ở nhà máy, khu công nghiệp. Mã nguồn mở, ai cũng có thể đóng góp.
+description: Bảng tra lệnh tiếng Việt cho người làm IT — Linux, mạng, Windows & AD, switch & firewall, Git, Docker, terminal. Ngắn, đúng, bấm là copy. Mã nguồn mở.
 template: splash
 hero:
-  title: Sổ tay cho người làm hệ thống & mạng
-  tagline: Lệnh đúng, quy trình chuẩn, nguồn chính thống. Viết bằng tiếng Việt, từ kinh nghiệm thật ở văn phòng và nhà máy.
+  title: Bảng tra lệnh cho người làm IT
+  tagline: Lệnh hay dùng nhất, gom theo việc. Ngắn, đúng, có nguồn — bấm vào lệnh là copy.
   actions:
-    - text: Bắt đầu học
-      link: /it-handbook/nghe-nghiep/
+    - text: Mở bảng Linux
+      link: /it-handbook/linux/
       icon: right-arrow
-    - text: Đang gặp sự cố
-      link: /it-handbook/xu-ly-su-co/
-      icon: warning
-      variant: secondary
     - text: Đóng góp trên GitHub
       link: https://github.com/ntm204/it-handbook
       icon: github
       variant: minimal
 ---
 
-import { Icon } from "@astrojs/starlight/components";
-
-## Đang gặp sự cố
-
-Chọn triệu chứng để xem cách xử lý. Lệnh bên dưới là thứ nên chạy đầu tiên.
-
 <div class="hb-grid">
-  <a class="hb-card" href="xu-ly-su-co/#su-co-1"><span class="t">Một máy không vào được mạng</span><code>ipconfig /all</code></a>
-  <a class="hb-card" href="xu-ly-su-co/#su-co-2"><span class="t">Cả khu mất mạng, mạng chậm bất thường</span><code>show interfaces status</code></a>
-  <a class="hb-card" href="xu-ly-su-co/#su-co-6"><span class="t">Tài khoản domain bị khoá liên tục</span><code>Search-ADAccount -LockedOut</code></a>
-  <a class="hb-card" href="xu-ly-su-co/#su-co-4"><span class="t">Không vào được thư mục chia sẻ</span><code>{"Test-NetConnection <server> -Port 445"}</code></a>
-  <a class="hb-card" href="xu-ly-su-co/#su-co-5"><span class="t">Máy in không in</span><code>{"ping <ip-máy-in>"}</code></a>
-  <a class="hb-card" href="xu-ly-su-co/#su-co-7"><span class="t">Server Linux đầy ổ</span><code>df -h && df -i</code></a>
-  <a class="hb-card" href="xu-ly-su-co/#su-co-8"><span class="t">Server chậm</span><code>uptime</code></a>
-  <a class="hb-card" href="xu-ly-su-co/#su-co-10"><span class="t">Camera mất hình</span><code>{"ping <ip-camera>"}</code></a>
+  <a class="hb-card" href="linux/"><span class="t">Linux</span><span class="d">Tình trạng server, dịch vụ, log, ổ đĩa, SSH, firewall.</span><code>df -h && df -i</code></a>
+  <a class="hb-card" href="mang/"><span class="t">Mạng</span><span class="d">IP, DNS, cổng, đường đi, bắt gói tin. Linux · Windows · macOS · Cisco.</span><code>{"nc -zv <ip> <cổng>"}</code></a>
+  <a class="hb-card" href="windows/"><span class="t">Windows &amp; AD</span><span class="d">Mạng, domain, tài khoản bị khoá, file server, máy in.</span><code>Search-ADAccount -LockedOut</code></a>
+  <a class="hb-card" href="thiet-bi-mang/"><span class="t">Switch &amp; Firewall</span><span class="d">Cisco, HPE/Aruba, FortiGate: cổng, VLAN, tìm MAC, lỗi.</span><code>show interfaces status</code></a>
+  <a class="hb-card" href="git/"><span class="t">Git</span><span class="d">Hằng ngày, nhánh, lịch sử, cứu khi lỡ tay.</span><code>git reset --soft HEAD~1</code></a>
+  <a class="hb-card" href="docker/"><span class="t">Docker</span><span class="d">Container, image, Compose, dọn dung lượng.</span><code>{"docker logs -f <tên>"}</code></a>
+  <a class="hb-card" href="terminal/"><span class="t">Terminal &amp; Neovim</span><span class="d">Phím tắt dòng lệnh, tmux, vim, LazyVim.</span><code>Ctrl+R</code></a>
+  <a class="hb-card" href="https://github.com/ntm204/it-handbook/issues/new?template=de-xuat.md"><span class="t">Thiếu lệnh hay?</span><span class="d">Đề xuất lệnh bạn hay dùng, không cần biết git.</span></a>
 </div>
-
-## Học theo thứ tự
-
-Sáu trang, đi từ nền tảng tới thực chiến. Mỗi trang có phần tự kiểm tra và ba điều cần nhớ.
-
-<div class="hb-grid">
-  <a class="hb-card" href="nghe-nghiep/"><span class="n">01</span><span class="t">Lộ trình nghề</span><span class="d">Vị trí nào, học gì trước, chứng chỉ nào đáng thi; mạng nhà máy chia tầng ra sao.</span></a>
-  <a class="hb-card" href="mang/"><span class="n">02</span><span class="t">Mạng</span><span class="d">Một máy vào mạng diễn ra thế nào; chia subnet; VLAN, NAT.</span></a>
-  <a class="hb-card" href="linux/"><span class="n">03</span><span class="t">Linux server</span><span class="d">Đọc tình trạng server trong 60 giây; dịch vụ, log, ổ đĩa, SSH.</span></a>
-  <a class="hb-card" href="windows/"><span class="n">04</span><span class="t">Windows &amp; AD</span><span class="d">Đăng nhập domain hoạt động thế nào; tài khoản bị khoá; file server.</span></a>
-  <a class="hb-card" href="thiet-bi-mang/"><span class="n">05</span><span class="t">Switch &amp; Firewall</span><span class="d">Cisco, HPE/Aruba, FortiGate: VLAN, lỗi cổng, vì sao gói bị chặn.</span></a>
-  <a class="hb-card" href="xu-ly-su-co/"><span class="n">06</span><span class="t">Xử lý sự cố</span><span class="d">Quy trình 7 bước chuẩn CompTIA và 10 sự cố hay gặp nhất.</span></a>
-</div>
-
-## Thực hành và cộng đồng
-
-<div class="hb-grid">
-  <a class="hb-card" href="lab/"><Icon name="laptop" size="1.4rem" color="var(--sl-color-accent)" /><span class="t">6 bài lab</span><span class="d">Dựng mạng, làm đầy ổ, viết dịch vụ, chặn cổng, VLAN Cisco. Có làm mẫu và đáp án.</span></a>
-  <a class="hb-card" href="thuat-ngu/"><Icon name="open-book" size="1.4rem" color="var(--sl-color-accent)" /><span class="t">Thuật ngữ Việt – Anh</span><span class="d">44 thuật ngữ. Ở mọi trang, rê chuột vào chữ có gạch chấm để xem giải thích.</span></a>
-  <a class="hb-card" href="https://github.com/ntm204/it-handbook/issues/new?template=chia-se-su-co.yml"><Icon name="comment-alt" size="1.4rem" color="var(--sl-color-accent)" /><span class="t">Chia sẻ một sự cố</span><span class="d">Kể lại sự cố bạn từng xử lý, không cần biết git. Người đóng góp được ghi tên.</span></a>
-</div>
-
-## Tiến độ của bạn
-
-<div class="hb-panel"><div id="review-due"></div></div>
-
-Ôn lại sau 1, 7 và 30 ngày giúp nhớ lâu hơn nhiều so với đọc lại liền một lúc. Trang tự nhắc khi đến hạn.
 
 <div class="hb-tips">
-  <span><kbd>/</kbd> để tìm ở bất kỳ đâu</span>
+  <span><kbd>/</kbd> để tìm lệnh ở bất kỳ đâu</span>
   <span>Bấm lệnh trong bảng để copy</span>
-  <span>Rê chuột lên thuật ngữ để xem nghĩa</span>
-  <span>In bảng tra ra A4 khi đi hiện trường</span>
+  <span>Mỗi trang mở đầu bằng bảng "Gặp vấn đề"</span>
+  <span>In trang ra A4 khi đi hiện trường</span>
 </div>
