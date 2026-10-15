@@ -1,6 +1,9 @@
 ---
 title: Docker
 description: Bảng lệnh Docker và Docker Compose hay dùng nhất — chạy, xem log, vào container, dọn dung lượng, sửa lỗi container không chạy.
+man: docker(1)
+order: 6
+summary: "container, image, Compose, dọn dung lượng"
 ---
 
 Lệnh Docker và Docker Compose dùng hằng ngày.
@@ -54,9 +57,7 @@ Chạy trong thư mục có `compose.yml`.
 | Khởi động lại một service | `docker compose restart <service>` |
 | Kiểm tra file compose | `docker compose config` |
 
-:::caution
-`docker compose down -v` xoá luôn **volume**: dữ liệu database trong đó mất hẳn.
-:::
+> **Chú ý:** `docker compose down -v` xoá luôn **volume**: dữ liệu database trong đó mất hẳn.
 
 ## Dọn dung lượng {#don-dep}
 

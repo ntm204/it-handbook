@@ -1,6 +1,9 @@
 ---
 title: Mạng
 description: Bảng lệnh kiểm tra mạng cho Linux, Windows, macOS, Cisco — IP, DNS, cổng, đường đi, bắt gói tin — kèm bảng subnet và cổng hay gặp.
+man: mang(8)
+order: 2
+summary: "IP, DNS, cổng, đường đi, bắt gói tin cho Linux, Windows, macOS, Cisco"
 ---
 
 Lệnh kiểm tra mạng, đặt cạnh nhau cho Linux, Windows, macOS và Cisco.

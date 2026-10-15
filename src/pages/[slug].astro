@@ -1,0 +1,35 @@
+---
+// Một trang chủ đề, trình bày như trang man: TÊN → MỤC LỤC → các mục → XEM THÊM
+import { getCollection, render } from "astro:content";
+import { execSync } from "node:child_process";
+import Man from "../layouts/Man.astro";
+import { SITE } from "../site";
+
+export async function getStaticPaths() {
+  const docs = (await getCollection("docs")).sort((a, b) => a.data.order - b.data.order);
+  return docs.map((doc) => ({ params: { slug: doc.id }, props: { doc, docs } }));
+}
+
+const { doc, docs } = Astro.props;
+const { Content, headings } = await render(doc);
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const label = doc.data.man.toUpperCase();
+const sections = headings.filter((h) => h.depth === 2);
+const others = docs.filter((d) => d.id !== doc.id);
+let date = "";
+try { date = execSync(`git log -1 --format=%cs -- "${doc.filePath}"`).toString().trim(); } catch {}
+---
+
+<Man title={`${doc.data.title} · ${SITE.name}`} description={doc.data.description} label={label} date={date} editPath={doc.filePath}>
+  <h2>Tên</h2>
+  <h1>{doc.data.man} — {doc.data.summary}</h1>
+
+  <h2 data-pagefind-ignore>Mục lục</h2>
+  <p class="toc" data-pagefind-ignore>{sections.map((h, i) => <>{i > 0 && " · "}<a href={`#${h.slug}`}>{h.text}</a></>)}</p>
+
+  <h2>Mô tả</h2>
+  <Content />
+
+  <h2 data-pagefind-ignore>Xem thêm</h2>
+  <p class="toc" data-pagefind-ignore>{others.map((d, i) => <>{i > 0 && ", "}<a href={`${base}${d.id}/`}>{d.data.man}</a></>)}</p>
+</Man>

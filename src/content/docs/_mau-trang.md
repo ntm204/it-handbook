@@ -1,6 +1,9 @@
 ---
 title: Tên chủ đề
 description: Một câu cho Google — bảng lệnh <chủ đề> hay dùng nhất: <việc 1>, <việc 2>, <việc 3>.
+man: ten-trang(1)
+order: 99
+summary: "việc 1, việc 2, việc 3"
 ---
 
 Một câu: trang này gồm lệnh gì, chạy trên đâu (ghi rõ phiên bản đã thử).
@@ -19,9 +22,7 @@ Một câu: trang này gồm lệnh gì, chạy trên đâu (ghi rõ phiên bả
 
 <!-- Cấu hình nhiều dòng (switch, cron, ssh config) thì dùng khối code ``` thay cho bảng -->
 
-:::caution
-Chỉ dùng cho lệnh làm sai có thể mất dữ liệu hoặc mất kết nối.
-:::
+> **Chú ý:** Chỉ dùng cho lệnh làm sai có thể mất dữ liệu hoặc mất kết nối.
 
 ## Nguồn {#nguon}
 

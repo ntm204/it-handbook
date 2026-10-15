@@ -1,6 +1,9 @@
 ---
 title: Switch & Firewall
 description: Bảng lệnh Cisco IOS, HPE/Aruba, FortiGate — xem cổng, VLAN, tìm máy theo MAC, lỗi cổng, cấu hình access/trunk, debug firewall.
+man: switch(8)
+order: 4
+summary: "Cisco, HPE/Aruba, FortiGate: cổng, VLAN, tìm MAC, lỗi cổng"
 ---
 
 Lệnh switch Cisco, HPE/Aruba và firewall FortiGate.
@@ -74,9 +77,7 @@ interface gi1/0/48
  switchport trunk allowed vlan 10,20,30
 ```
 
-:::caution
-Thêm VLAN vào trunk đang chạy: `switchport trunk allowed vlan add 40`. Thiếu chữ `add` là **thay cả danh sách** bằng mỗi VLAN 40, các VLAN khác mất kết nối ngay.
-:::
+> **Chú ý:** Thêm VLAN vào trunk đang chạy: `switchport trunk allowed vlan add 40`. Thiếu chữ `add` là **thay cả danh sách** bằng mỗi VLAN 40, các VLAN khác mất kết nối ngay.
 
 Sửa từ xa: chạy `reload in 10` trước. Lỡ mất kết nối, 10 phút sau switch tự khởi động lại với cấu hình cũ. Sửa xong ổn thì `reload cancel` rồi `write memory`.
 
@@ -113,9 +114,7 @@ diagnose debug flow trace start 10
 
 `Denied by forward policy check (policy 0)` = không có policy nào cho phép. Xong thì tắt debug: `diagnose debug disable` · `diagnose debug reset`.
 
-:::note
-Lệnh trên trang này chưa chạy thử được trên máy lab. Nguồn là tài liệu chính thức của Cisco và Fortinet bên dưới.
-:::
+> **Ghi chú:** Lệnh trên trang này chưa chạy thử được trên máy lab. Nguồn là tài liệu chính thức của Cisco và Fortinet bên dưới.
 
 ## Nguồn {#nguon}
 

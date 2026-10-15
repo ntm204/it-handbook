@@ -1,6 +1,9 @@
 ---
 title: Linux
 description: Bảng lệnh Linux server hay dùng nhất — tình trạng máy, dịch vụ, log, ổ đĩa, SSH, firewall. Chạy được trên Ubuntu/Debian, có ghi chú cho RHEL.
+man: linux(8)
+order: 1
+summary: "tình trạng server, dịch vụ, log, ổ đĩa, SSH, firewall"
 ---
 
 Lệnh quản trị server Linux dùng hằng ngày. Thử trên Ubuntu 26.04.
@@ -65,9 +68,7 @@ Kiểm tra cấu hình **trước** khi restart, ví dụ `sudo nginx -t`.
 | Làm rỗng log đang ghi (thay vì `rm`) | `sudo truncate -s 0 <file>.log` |
 | Các ổ, phân vùng | `lsblk -f` |
 
-:::caution
-`rm` một file log đang được ghi **không giải phóng dung lượng**: tiến trình vẫn giữ nó. Dùng `truncate`, hoặc restart tiến trình đó.
-:::
+> **Chú ý:** `rm` một file log đang được ghi **không giải phóng dung lượng**: tiến trình vẫn giữ nó. Dùng `truncate`, hoặc restart tiến trình đó.
 
 ## SSH & chép file {#ssh}
 

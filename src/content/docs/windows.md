@@ -1,6 +1,9 @@
 ---
 title: Windows & AD
 description: Bảng lệnh Windows và Active Directory cho IT văn phòng, nhà máy — mạng, đăng nhập domain, tài khoản bị khoá, file server, máy in, robocopy.
+man: windows(8)
+order: 3
+summary: "mạng, domain, tài khoản bị khoá, file server, máy in"
 ---
 
 Lệnh Windows và Active Directory hay dùng. Lệnh `Get-…`, `Set-…` chạy trong PowerShell; lệnh AD chạy trên domain controller hoặc máy có RSAT.
@@ -79,9 +82,7 @@ Get-WinEvent -ComputerName $pdc -FilterHashtable @{LogName='Security'; Id=4740} 
 | Chép lớn, đứt mạng chép tiếp | `robocopy <nguồn> <đích> /E /Z /MT:16 /R:2 /W:5 /LOG:C:\robocopy.log` |
 | Chạy thử, chỉ liệt kê | thêm `/L` |
 
-:::caution
-`robocopy /MIR` xoá ở đích những gì nguồn không có. Đảo ngược nguồn và đích là **mất sạch dữ liệu thật**. Luôn chạy thử với `/L` trước.
-:::
+> **Chú ý:** `robocopy /MIR` xoá ở đích những gì nguồn không có. Đảo ngược nguồn và đích là **mất sạch dữ liệu thật**. Luôn chạy thử với `/L` trước.
 
 ### Máy in kẹt lệnh in {#may-in}
 
@@ -105,9 +106,7 @@ net start spooler
 | `dnsmgmt.msc` · `dhcpmgmt.msc` | DNS server · DHCP server |
 | `fsmgmt.msc` | Phiên đang mở file trên file server |
 
-:::note
-Lệnh trên trang này chưa chạy thử được trên máy lab (lab là Linux). Nguồn là tài liệu chính thức của Microsoft bên dưới.
-:::
+> **Ghi chú:** Lệnh trên trang này chưa chạy thử được trên máy lab (lab là Linux). Nguồn là tài liệu chính thức của Microsoft bên dưới.
 
 ## Nguồn {#nguon}
 

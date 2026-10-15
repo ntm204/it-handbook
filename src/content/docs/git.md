@@ -1,6 +1,9 @@
 ---
 title: Git
 description: Bảng lệnh git hay dùng nhất — làm việc hằng ngày, nhánh, xem lịch sử, và cứu khi lỡ tay (hoàn tác commit, khôi phục file, lấy lại code đã mất).
+man: git(1)
+order: 5
+summary: "hằng ngày, nhánh, lịch sử, cứu khi lỡ tay"
 ---
 
 Lệnh git dùng hằng ngày và lệnh cứu khi lỡ tay.
@@ -66,9 +69,7 @@ Lệnh git dùng hằng ngày và lệnh cứu khi lỡ tay.
 | Bỏ mọi sửa đổi chưa commit | `git restore .` | Sửa đổi chưa commit |
 | Xoá file mới chưa theo dõi (xem trước bằng `-n`) | `git clean -n` → `git clean -fd` | File mới |
 
-:::caution
-Commit đã `push` lên nhánh dùng chung thì **không** `reset` rồi `push --force`: người khác sẽ mất commit. Dùng `git revert`.
-:::
+> **Chú ý:** Commit đã `push` lên nhánh dùng chung thì **không** `reset` rồi `push --force`: người khác sẽ mất commit. Dùng `git revert`.
 
 ## Cấu hình một lần {#cau-hinh}
 

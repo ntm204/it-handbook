@@ -1,0 +1,129 @@
+/* Sổ tay IT — giao diện kiểu trang man: một cột 80 ký tự, chữ đơn cách, tiêu đề mục viết hoa, nội dung thụt lề.
+   Không khung, không viền, không thẻ: chỉ chữ, khoảng trống và màu. Màu tối theo Tokyo Night, sáng như giấy in. */
+
+/* ── Màu ── */
+:root {
+  color-scheme: dark;
+  --bg: #1a1b26;
+  --fg: #a9b1d6;      /* chữ thường */
+  --hi: #c0caf5;      /* tiêu đề, chữ đậm */
+  --cmd: #9ece6a;     /* lệnh */
+  --link: #7aa2f7;
+  --dim: #7a83ae;     /* dòng đầu, dòng cuối, nhãn (tương phản 4.6:1, đạt chuẩn đọc) */
+  --warn: #e0af68;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+    --bg: #f7f6f2; --fg: #3a3a3a; --hi: #111; --cmd: #2d6a1f; --link: #1d4ed8; --dim: #6b6b66; --warn: #8a5300;
+  }
+}
+
+/* ── Khung chữ ── */
+html { background: var(--bg); }
+body {
+  margin: 0 auto; max-width: 80ch; padding: 1.5rem 2ch 4rem;
+  font: 400 15px/1.7 "JetBrains Mono", ui-monospace, Menlo, monospace;
+  color: var(--fg); background: var(--bg);
+  -webkit-font-smoothing: antialiased; text-size-adjust: 100%;
+}
+::selection { background: color-mix(in srgb, var(--link) 30%, transparent); }
+a { color: var(--link); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--hi); }
+:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+b, strong { color: var(--hi); font-weight: 700; }
+
+/* Dòng đầu và dòng cuối: TÊN(số) ở hai góc, như trang man */
+.man-line { display: flex; justify-content: space-between; gap: 2ch; color: var(--dim); }
+.man-line a { color: var(--dim); text-decoration: none; }
+.man-line a:hover { color: var(--hi); }
+footer { margin-top: 4rem; color: var(--dim); }
+footer .edit { margin: 0 0 1rem; }
+footer .edit a { color: var(--dim); }
+
+/* ── Tiêu đề mục: viết hoa, sát lề; nội dung thụt vào 7 ký tự ── */
+main h2 {
+  margin: 2.2em 0 .4em; font-size: 1em; font-weight: 700; color: var(--hi);
+  text-transform: uppercase; letter-spacing: .02em;
+}
+main h3 { margin: 1.6em 0 .3em 3ch; font-size: 1em; font-weight: 700; color: var(--hi); }
+main h1 { margin: 0 0 0 7ch; font-size: 1em; font-weight: 400; color: var(--fg); }
+main :is(p, ul, ol, pre, blockquote, dl) { margin: .5em 0 .9em 7ch; }
+main ul, main ol { padding-left: 2ch; }
+main li { margin: .15em 0; }
+main h2 a, main h3 a { color: inherit; text-decoration: none; }
+
+/* Lệnh: không nền, không khung, chỉ đổi màu */
+code { font: inherit; color: var(--cmd); }
+pre { color: var(--hi); white-space: pre; overflow-x: auto; }
+pre code { color: inherit; }
+
+/* Danh sách việc → lệnh (bảng Markdown được đổi thành <dl>, xem scripts/rehype-man-tables.mjs) */
+dt { color: var(--fg); }
+dd { margin: 0 0 .7em 4ch; }
+dd .k { display: inline-block; min-width: 8ch; color: var(--dim); }   /* nhãn cột: Linux, Windows… */
+dd code { cursor: copy; }
+dd code:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* Lưu ý: chữ thường, nhãn màu cảnh báo */
+blockquote { color: var(--fg); }
+blockquote strong:first-child { color: var(--warn); }
+
+/* Mục lục đầu trang và "xem thêm": một dòng liên kết */
+.toc a { white-space: nowrap; }
+
+/* ── Tìm kiếm (Pagefind): một dòng chữ, không khung ── */
+#search {
+  margin: 1.2rem 0 0;
+  --pagefind-ui-font: inherit; --pagefind-ui-scale: .78;
+  --pagefind-ui-primary: var(--link); --pagefind-ui-text: var(--fg); --pagefind-ui-background: var(--bg);
+  --pagefind-ui-border: transparent; --pagefind-ui-tag: var(--bg); --pagefind-ui-border-width: 0; --pagefind-ui-border-radius: 0;
+}
+#search, #search * { font-family: "JetBrains Mono", ui-monospace, monospace !important; }   /* Pagefind tự đặt font riêng: ép về chữ đơn cách */
+#search .pagefind-ui__form::before { display: none; }                 /* bỏ icon kính lúp */
+#search .pagefind-ui__search-input { padding: 0; height: auto; font: 400 15px/1.7 inherit !important; font-family: "JetBrains Mono", ui-monospace, monospace !important; color: var(--hi); background: transparent; }
+#search .pagefind-ui__search-input::placeholder { color: var(--dim); opacity: 1; }
+#search .pagefind-ui__search-clear { background: transparent; color: var(--dim); font-size: 15px; height: auto; padding: 0; border: 0 !important; box-shadow: none !important; }
+#search .pagefind-ui__search-clear:hover { color: var(--hi); }
+#search .pagefind-ui__drawer { margin-top: .5rem; }
+#search .pagefind-ui__message { font-size: 15px; font-weight: 400; color: var(--dim); padding: 0; height: auto; }
+#search .pagefind-ui__result { border: 0; padding: .6rem 0 .6rem 7ch; }
+#search .pagefind-ui__result-link { color: var(--link); }
+#search .pagefind-ui__result-title { font-size: 15px; font-weight: 400; }
+#search .pagefind-ui__result-excerpt { font-size: 14px; color: var(--fg); }
+#search .pagefind-ui__result-nested { padding-left: 2ch; }
+#search .pagefind-ui__result-nested::before { display: none; }
+#search mark { background: none; color: var(--hi); font-weight: 700; }
+#search .pagefind-ui__button { border: 0; background: transparent; color: var(--link); font: inherit; font-size: 15px; padding: 0 0 0 7ch; height: auto; text-align: left; }
+
+/* Bản không dấu của chữ có "đ" (scripts/remark-vi-search.mjs): chỉ cho công cụ tìm kiếm đọc, ẩn với mắt */
+.hb-search-alias { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; user-select: none; }
+
+/* Báo đã copy */
+#toast {
+  position: fixed; left: 50%; bottom: 1.5rem; transform: translate(-50%, .5rem);
+  max-width: 90vw; padding: .3rem 1ch; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  color: var(--bg); background: var(--hi); opacity: 0; pointer-events: none; transition: opacity .15s, transform .15s;
+}
+#toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* ── Màn hình hẹp: thụt lề ít lại ── */
+@media (max-width: 40rem) {
+  body { padding-top: 1rem; font-size: 14px; line-height: 1.8; }
+  main h1, main :is(p, ul, ol, pre, blockquote, dl) { margin-left: 2ch; }
+  main h3 { margin-left: 1ch; }
+  dd { margin-left: 2ch; }
+  .man-line .r { display: none; }
+  #search .pagefind-ui__result, #search .pagefind-ui__button { padding-left: 2ch; }
+}
+
+/* ── In ra giấy ── */
+@media print {
+  :root { --bg: #fff; --fg: #000; --hi: #000; --cmd: #000; --link: #000; --dim: #555; --warn: #000; }
+  body { max-width: none; font-size: 10.5pt; padding: 0; }
+  #search, #toast, footer .edit { display: none; }
+  code { font-weight: 700; }
+  dt, dd, h2, h3 { break-inside: avoid; break-after: avoid; }
+}
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

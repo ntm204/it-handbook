@@ -1,0 +1,35 @@
+---
+// Trang chủ, trình bày như `man so-tay-it`: tên, mô tả, danh sách trang (kiểu lệnh whatis), đóng góp
+import { getCollection } from "astro:content";
+import Man from "../layouts/Man.astro";
+import { SITE } from "../site";
+
+const docs = (await getCollection("docs")).sort((a, b) => a.data.order - b.data.order);
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const today = new Date().toISOString().slice(0, 10);
+---
+
+<Man title={`${SITE.name} — bảng tra lệnh cho người làm IT`} description="Bảng tra lệnh tiếng Việt cho người làm IT: Linux, mạng, Windows & AD, switch & firewall, Git, Docker, terminal. Ngắn, đúng, bấm là copy. Mã nguồn mở." label="SO-TAY-IT(7)" date={today}>
+  <h2>Tên</h2>
+  <h1>sổ tay IT — bảng tra lệnh cho người làm IT</h1>
+
+  <h2>Mô tả</h2>
+  <p>Lệnh hay dùng nhất, gom theo việc. Mỗi trang mở đầu bằng <b>Gặp vấn đề</b>: triệu chứng và lệnh nên chạy trước. Lệnh đã chạy thử hoặc có nguồn chính thống.</p>
+  <p>Bấm vào lệnh để copy. Gõ <code>/</code> ở bất kỳ đâu để tìm, gõ không dấu cũng được.</p>
+
+  <h2>Trang</h2>
+  <dl>
+    {docs.map((d) => (
+      <>
+        <dt><a href={`${base}${d.id}/`}>{d.data.man}</a></dt>
+        <dd>{d.data.summary}</dd>
+      </>
+    ))}
+  </dl>
+
+  <h2>Đóng góp</h2>
+  <p>Mã nguồn mở. Có lệnh hay, thấy lệnh sai: <a href={`${SITE.repo}/issues/new?template=de-xuat.md`}>đề xuất</a>, <a href={`${SITE.repo}/issues/new?template=bao-loi.yml`}>báo lỗi</a>, hoặc sửa thẳng trên <a href={SITE.repo}>GitHub</a>. Người đóng góp được ghi tên.</p>
+
+  <h2>Giấy phép</h2>
+  <p>Nội dung <a href={`${SITE.repo}/blob/main/LICENSE`}>CC BY-SA 4.0</a>, mã nguồn <a href={`${SITE.repo}/blob/main/LICENSE-CODE`}>MIT</a>.</p>
+</Man>

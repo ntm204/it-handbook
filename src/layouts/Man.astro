@@ -1,0 +1,112 @@
+---
+// Khuôn trang kiểu trang man: dòng đầu (TÊN(số) · Sổ tay IT · TÊN(số)), ô tìm kiếm, nội dung, dòng cuối.
+import "@fontsource/jetbrains-mono/400.css";
+import "@fontsource/jetbrains-mono/700.css";
+import "../styles/man.css";
+import { SITE } from "../site";
+
+interface Props {
+  title: string;        // tiêu đề tab trình duyệt
+  description: string;
+  label: string;        // hiện ở hai góc trên, ví dụ "LINUX(8)"
+  date?: string;        // ngày cập nhật, hiện ở dòng cuối
+  editPath?: string;    // đường dẫn file trong repo, để hiện "sửa trang này"
+}
+const { title, description, label, date, editPath } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const canonical = new URL(Astro.url.pathname, SITE.origin).href;
+const ogImage = new URL(`${base}og.png`, SITE.origin).href;
+---
+
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
+    <link rel="sitemap" href={`${base}sitemap-index.xml`} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
+    <link rel="stylesheet" href={`${base}pagefind/pagefind-ui.css`} />
+    <script is:inline defer src={`${base}pagefind/pagefind-ui.js`}></script>
+  </head>
+  <body>
+    <header class="man-line">
+      <span>{label}</span>
+      <a href={base}>{SITE.name}</a>
+      <span class="r">{label}</span>
+    </header>
+
+    <div id="search" data-pagefind-ignore></div>
+
+    <main data-pagefind-body={editPath ? "" : undefined}>
+      <slot />
+    </main>
+
+    <footer data-pagefind-ignore>
+      {editPath && (
+        <p class="edit"><a href={`${SITE.repo}/edit/main/${editPath}`}>sửa trang này</a> · <a href={`${SITE.repo}/issues/new?template=bao-loi.yml`}>báo lệnh sai</a></p>
+      )}
+      <div class="man-line">
+        <span>{SITE.name}</span>
+        <span>{date}</span>
+        <span class="r">{label}</span>
+      </div>
+    </footer>
+
+    <div id="toast" role="status" aria-live="polite"></div>
+
+    <script is:inline define:vars={{ base }}>
+      // Tìm kiếm (Pagefind): chỉ có sau khi build; khi chạy dev thì bỏ qua
+      window.addEventListener("DOMContentLoaded", () => {
+        if (!window.PagefindUI) return;
+        new PagefindUI({
+          element: "#search", baseUrl: base, showImages: false, showSubResults: true, resetStyles: false,
+          translations: {
+            placeholder: "/ tìm lệnh…", clear_search: "xoá", load_more: "xem thêm",
+            zero_results: "không có kết quả cho [SEARCH_TERM]", many_results: "[COUNT] kết quả cho [SEARCH_TERM]",
+            one_result: "[COUNT] kết quả cho [SEARCH_TERM]", searching: "đang tìm [SEARCH_TERM]…",
+          },
+        });
+        // Đoạn trích kết quả: bỏ phần chữ không dấu ⟦ … ⟧ (chỉ để tìm "dang nhap" ra "đăng nhập")
+        const box = document.getElementById("search");
+        new MutationObserver(() => {
+          box.querySelectorAll(".pagefind-ui__result-excerpt").forEach((e) => {
+            if (!/[⟦⟧]/.test(e.innerHTML)) return;
+            e.innerHTML = e.innerHTML.replace(/⟦[\s\S]*?⟧/g, " ").replace(/^[^⟦]*?⟧/, " ").replace(/⟦[\s\S]*$/, " ").replace(/\s{2,}/g, " ").trim();
+          });
+        }).observe(box, { childList: true, subtree: true });
+      });
+
+      // Gõ "/" ở bất kỳ đâu để tìm
+      document.addEventListener("keydown", (e) => {
+        const t = e.target;
+        if (e.key !== "/" || t.isContentEditable || /^(input|textarea)$/i.test(t.tagName)) return;
+        const input = document.querySelector("#search input");
+        if (input) { e.preventDefault(); input.focus(); }
+      });
+
+      // Bấm vào lệnh để copy
+      const toast = (msg) => {
+        const t = document.getElementById("toast");
+        t.textContent = msg; t.classList.add("show");
+        clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("show"), 1500);
+      };
+      document.addEventListener("click", (e) => {
+        const c = e.target.closest("dd code");
+        if (!c) return;
+        navigator.clipboard.writeText(c.innerText).then(() => toast("đã copy: " + c.innerText));
+      });
+    </script>
+  </body>
+</html>

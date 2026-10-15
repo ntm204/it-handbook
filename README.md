@@ -26,7 +26,7 @@ Lệnh hay nhất là lệnh người làm nghề dùng thật hằng ngày. B�
 |---|---|---|
 | **Chia sẻ một sự cố đã gặp** | [Điền mẫu chia sẻ sự cố](../../issues/new?template=chia-se-su-co.yml) | Không |
 | Báo lỗi sai, lệnh sai | [Báo lỗi nội dung](../../issues/new?template=bao-loi.yml) | Không |
-| Sửa một chỗ nhỏ | Bấm **Sửa trang này** ở cuối mỗi trang trên web | Không, sửa ngay trên GitHub |
+| Sửa một chỗ nhỏ | Bấm **sửa trang này** ở cuối mỗi trang trên web | Không, sửa ngay trên GitHub |
 | Đề xuất lệnh hay, chủ đề mới | [Gửi đề xuất](../../issues/new?template=de-xuat.md) | Không |
 | Thêm trang, bổ sung lệnh | Đọc [CONTRIBUTING.md](CONTRIBUTING.md) | Có |
 
@@ -41,7 +41,7 @@ npm install
 npm run dev          # http://localhost:4321/it-handbook/ — sửa file là trang tự cập nhật
 ```
 
-Nội dung nằm trong `src/content/docs/`, mỗi trang là một file Markdown. Trang web dựng bằng [Starlight](https://starlight.astro.build).
+Nội dung nằm trong `src/content/docs/`, mỗi trang là một file Markdown. Trang web dựng bằng [Astro](https://astro.build), giao diện kiểu trang `man`, tìm kiếm bằng [Pagefind](https://pagefind.app) (chỉ có sau `npm run build`).
 
 ## Giấy phép
 

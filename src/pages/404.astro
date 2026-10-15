@@ -1,0 +1,11 @@
+---
+import Man from "../layouts/Man.astro";
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+---
+
+<Man title="Không tìm thấy · Sổ tay IT" description="Trang không tồn tại." label="404(7)">
+  <h2>Tên</h2>
+  <h1>404 — không có trang này</h1>
+  <h2>Mô tả</h2>
+  <p>Trang có thể đã đổi tên. Về <a href={base}>trang chủ</a>, hoặc gõ <code>/</code> để tìm lệnh.</p>
+</Man>

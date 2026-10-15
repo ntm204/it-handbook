@@ -1,6 +1,9 @@
 ---
 title: Terminal & Neovim
 description: Phím tắt dòng lệnh (bash/zsh), tmux, vim/Neovim — bộ phím dùng được trên mọi server Linux và máy dev.
+man: terminal(1)
+order: 7
+summary: "phím tắt dòng lệnh, tìm và lọc, tmux, vim, LazyVim"
 ---
 
 Phím tắt dòng lệnh, tmux và vim/Neovim. Đều dùng được khi SSH vào server.
